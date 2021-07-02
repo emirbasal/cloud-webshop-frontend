@@ -1,0 +1,33 @@
+.product-list-entry {
+    width: 302px;
+    height: 200px;
+}
+
+.product-name, .product-price, .product-description {
+    text-align: center;
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 1026px) {
+    .product-list-entry {
+        width:226px;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 797px) {
+    .product-list-entry {
+        width:170px;
+    }
+}
+
+@media only screen and (min-width: 510px) and (max-width: 629px) {
+    .product-list-entry {
+        width:130px;
+    }
+}
+
+@media only screen and (max-width: 509px) {
+    .product-list-entry {
+        width: 290px;
+    }
+}

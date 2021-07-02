@@ -1,0 +1,10 @@
+.homepage-wrapper {
+    width: 100%;
+    min-height: calc(100% - 42px);
+    display: flex;
+    justify-content: center;
+}
+
+.products-wrapper {
+    min-height: 100%;
+}

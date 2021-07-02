@@ -1,0 +1,26 @@
+<div class="container product-list">
+    <div class="row">
+        <div *ngFor="let product of currentProducts | slice:0:3" class="column" [product]="product" product-list-entry></div>
+    </div>
+    <div class="row">
+        <div *ngFor="let product of currentProducts | slice:3:6" class="column" [product]="product" product-list-entry></div>
+    </div>
+    <div class="row">
+        <div *ngFor="let product of currentProducts | slice:6:9" class="column" [product]="product" product-list-entry></div>
+    </div>
+    <div class="row">
+        <div *ngFor="let product of currentProducts | slice:9:12" class="column" [product]="product" product-list-entry></div>
+    </div>
+
+    <div class="pagination-buttons">
+        <button class="button" (click)="previousPage()" [disabled]="this.currentPage - 1 <= 0">
+            Zurück
+        </button>
+        <button *ngFor="let number of pageArray" class="button" [ngClass]="{'button': number === currentPage, 'button-outline': number != currentPage}" (mousedown)="setPage(number)">
+            {{number}}
+        </button>
+        <button class="button" (click)="nextPage()" [disabled]="this.currentPage + 1 > amountOfPages">
+            Weiter
+        </button>
+    </div>
+</div>
