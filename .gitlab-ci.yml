@@ -1,0 +1,40 @@
+image: node:12
+
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  image: trion/ng-cli
+  before_script:
+    - npm ci
+  script:
+    - ng build
+  paths:
+    - dist/
+  tags:
+    - docker
+
+
+# deploy:
+#   stage: 'deploy'
+#   environment:
+#     name: production
+#   script:
+#     - apt update
+#     - apt install -y software-properties-common
+#     - apt install -y python-dev
+#     - apt install -y python-pip
+#     - pip install awscli
+#     - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+#     - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+#     - aws configure set region us-east-1
+#     - ls -la -F
+#     - mv dist/angular-gitlab-ci-cd-example/appspec.yml dist/
+#     - cd dist
+#     - ls -al -F
+#     - cd ..
+#     - aws deploy push --application-name angular-gitlab-ci-cd-example --s3-location $AWS_S3_LOCATION --ignore-hidden-files --source dist
+#   only:
+#     - master
