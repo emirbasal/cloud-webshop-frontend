@@ -11,8 +11,9 @@ build:
     - npm ci
   script:
     - ng build
-  paths:
-    - dist/
+  artifacts:
+    paths:
+      - dist/
   tags:
     - docker
 
