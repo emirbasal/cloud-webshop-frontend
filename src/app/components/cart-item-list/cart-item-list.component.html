@@ -1,0 +1,13 @@
+<table>
+  <tbody>
+    <tr cart-item-list-entry *ngFor="let cartItem of items" [item]="cartItem">
+    </tr>
+
+    <tr>
+      <td class="cart-sum-cell">Summe</td>
+      <td class="cart-sum-cell"></td>
+      <td></td>
+      <td class="cart-sum-cell">{{totalSum}} EUR</td>
+    </tr>
+  </tbody>
+</table>

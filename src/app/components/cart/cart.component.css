@@ -1,0 +1,28 @@
+.cart-wrapper {
+  width: 100%;
+  min-height: calc(100% - 42px);
+  min-width: 998px;
+  display: flex;
+  justify-content: center;
+}
+
+.overview-wrapper {
+  min-height: 100%;
+  min-width: 700px;
+  padding: 16px;
+  margin: 8px;
+  height: 100%;
+
+  background-color: var(--c7);
+
+  display: flex;
+  flex-direction: row;
+}
+
+cart-item-list {
+  margin-right: auto;
+}
+
+cart-user-information {
+  margin-left: 16px;
+}
