@@ -1,3 +1,9 @@
 <div class="navbar">
-    
+  <button routerLink="/" class="button-small">
+    <div class="icon" icon iconName="house-fill" iconAlt="Home icon"></div>
+</button>
+<button routerLink="/cart" class="button-small">
+    <div class="icon" icon iconName="cart-fill" iconAlt="Shopping cart icon"></div>
+    <span class="cart-counter">{{itemsInCart}}</span>
+</button>
 </div>

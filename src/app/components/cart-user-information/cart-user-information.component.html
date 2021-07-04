@@ -1,0 +1,11 @@
+<form class="user-information-form" [formGroup]="informationForm" autocomplete="off">
+  <fieldset>
+      <label for="userMail">Mailadresse</label>
+      <input id="userMail" type="email" formControlName="email" placeholder="Mailadresse"/>
+
+      <label for="cardNumber">Kartennummer</label>
+      <input id="cardNumber" type="text" maxlength="16" formControlName="card" placeholder="0000000000000000"/>
+
+      <input class="button" type="submit" value="Bezahlen">
+  </fieldset>
+</form>

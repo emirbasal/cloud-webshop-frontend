@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     height: calc(100% - 4rem);
-
+    min-width: 740px;
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
@@ -10,6 +10,9 @@
 .column {
     margin: 0.5rem;
     padding: unset;
+}
+.container {
+  padding: unset;
 }
 
 .pagination-buttons {
@@ -22,10 +25,55 @@
     margin: 2px
 }
 
-.button:focus {
-    background-color: #9b4dca;
+.product-list {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 4rem);
+  height: 100%;
+  padding: 16px;
 }
 
-.button:active {
-    filter: brightness(0.8);
+.row {
+  margin-left: unset;
+  flex-direction: unset;
+}
+
+.row .column {
+  flex: unset;
+}
+
+.column {
+  width: 302px;
+  margin: 0.5rem;
+  padding: unset;
+}
+
+
+.button-outline {
+  font-size: 1.1rem;
+  line-height: 3.8rem;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1026px) {
+  .column {
+      width:226px;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 797px) {
+  .column {
+      width:170px;
+  }
+}
+
+@media only screen and (min-width: 510px) and (max-width: 629px) {
+  .column {
+      width:130px;
+  }
+}
+
+@media only screen and (max-width: 509px) {
+  .column {
+      width: 290px;
+  }
 }
