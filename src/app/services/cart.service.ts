@@ -25,14 +25,8 @@ export class CartService {
     if (localStorage.getItem("userCart") === null) {
       let emptyCart = {}
 
-      let exampleItem: CartItem = { quantity: 1, product: { id: "1", name: "Test Product", description: "This is a Test Product", amount: 9.99, currency: "EUR" }}
-
-      emptyCart[exampleItem.product.id] = exampleItem
-
       localStorage.setItem("userCart", JSON.stringify(emptyCart))
 
-      this.productsInCart.push(exampleItem)
-      this.calcSum()
     } else {
       let parsedCart = JSON.parse(localStorage.getItem("userCart"))
 
@@ -78,6 +72,8 @@ export class CartService {
       this.itemsInCart += item.quantity
     })
 
+    this.currentSum = Math.round((this.currentSum + Number.EPSILON) * 100) / 100
+
     this.cartItemCounter.next(this.itemsInCart)
     this.cartSum.next(this.currentSum)
     this.cartItems.next(this.productsInCart)
@@ -114,13 +110,18 @@ export class CartService {
     this.calcSum()
   }
 
-  public setQuantity(productId: string, quantity: number): void {
+  public updateQuantity(productId: string, quantity: number): void {
     let productIndex = this.productsInCart.findIndex((item: CartItem) => {
       return productId === item.product.id
     });
 
     if (productIndex > -1) {
-      this.productsInCart[productIndex].quantity = quantity
+      if (this.productsInCart[productIndex].quantity + quantity == 0) {
+        this.removeFromCart(productId)
+      } else {
+        this.productsInCart[productIndex].quantity += quantity
+      }
+
     } else {
       return
     }

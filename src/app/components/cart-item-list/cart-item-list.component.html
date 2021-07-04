@@ -1,6 +1,6 @@
 <table>
   <tbody>
-    <tr cart-item-list-entry *ngFor="let cartItem of items" [item]="cartItem">
+    <tr cart-item-list-entry *ngFor="let cartItem of items" [item]="cartItem" (editQuantity)="editQuantity(cartItem.product.id, $event)" (removeItem)="removeItem(cartItem.product.id)">
     </tr>
 
     <tr>

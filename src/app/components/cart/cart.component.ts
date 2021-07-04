@@ -28,6 +28,15 @@ export class CartComponent implements OnInit, OnDestroy {
     })
   }
 
+  public changeQuantity(productId: string, amount: number): void {
+    this.cartService.updateQuantity(productId, amount)
+  }
+
+  public removeFromCart(productId: string): void {
+    this.cartService.removeFromCart(productId)
+  }
+
+
   ngOnDestroy(): void {
     this.itemsInCartSub.unsubscribe()
     this.currentSumSub.unsubscribe()
