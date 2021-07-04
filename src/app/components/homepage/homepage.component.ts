@@ -21,4 +21,13 @@ export class HomepageComponent implements OnInit {
     this.products = this.apiService.getProducts()
   }
 
+  public addToCart(productId: string): void {
+    let productIndex = this.products.findIndex((product: Product) => {
+      return product.id === productId
+    })
+
+    this.cartService.addToCart(this.products[productIndex])
+  }
+
+
 }

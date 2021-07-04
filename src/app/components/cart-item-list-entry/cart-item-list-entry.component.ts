@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, EventEmitter, Output } from '@angular/core';
 import { CartItem } from 'src/app/classes/cartItem';
 
 @Component({
@@ -7,6 +7,10 @@ import { CartItem } from 'src/app/classes/cartItem';
   styleUrls: ['./cart-item-list-entry.component.css']
 })
 export class CartItemListEntryComponent implements OnInit, OnChanges {
+
+  @Output() editQuantity = new EventEmitter
+  @Output() removeItem = new EventEmitter
+
 
   @Input() item: CartItem
 
@@ -17,5 +21,14 @@ export class CartItemListEntryComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
   }
+
+  public onEditQuantity(amount: number): void {
+    this.editQuantity.emit(amount)
+  }
+
+  public onRemoveItem(): void {
+    this.removeItem.emit()
+  }
+
 
 }

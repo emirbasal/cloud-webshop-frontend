@@ -1,7 +1,8 @@
 
 <div class="cart-wrapper">
   <div class="overview-wrapper border-radius box-shadow">
-      <cart-item-list [items]="itemsInCart" [totalSum]="currentSumCart"></cart-item-list>
+    <cart-item-list
+    (changeItemQuantity)="changeQuantity($event.id, $event.amount)" (removeItemFromCart)="removeFromCart($event)" [items]="itemsInCart" [totalSum]="currentSumCart"></cart-item-list>
       <cart-user-information></cart-user-information>
   </div>
 </div>

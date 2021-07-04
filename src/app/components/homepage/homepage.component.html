@@ -1,5 +1,5 @@
 <div class="homepage-wrapper">
   <div class="products-wrapper border-radius box-shadow">
-        <product-list [products]="products"></product-list>
+    <product-list (addProductToCart)="addToCart($event)" [products]="products"></product-list>
     </div>
 </div>

@@ -7,16 +7,16 @@
   {{item.product.name}}
 </th>
 <td>
-  <button class="button-small">
+  <button (click)="onEditQuantity(-1)" class="button-small">
       <div icon class="icon" iconName="cart-dash-fill" iconAlt="Minus Icon"></div>
   </button>
-  <button class="button-small">
+  <button (click)="onEditQuantity(1)" class="button-small">
       <div icon class="icon" iconName="cart-plus-fill" iconAlt="Plus Icon"></div>
   </button>
-  <button class="button-small">
+  <button (click)="onRemoveItem()" class="button-small">
       <div icon class="icon" iconName="cart-x-fill" iconAlt="Entfernen Icon"></div>
   </button>
 </td>
 <td>
-  {{item.quantity * item.product.amount}} {{item.product.currency}}
+  {{item.quantity * item.product.amount | number : '1.2-2'}} {{item.product.currency}}
 </td>

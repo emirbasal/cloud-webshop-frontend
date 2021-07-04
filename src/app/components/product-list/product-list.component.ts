@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Product } from 'src/app/classes/product';
 
 @Component({
@@ -9,13 +9,14 @@ import { Product } from 'src/app/classes/product';
 export class ProductListComponent implements OnInit, OnChanges {
 
   @Input() products: Product[]
+  @Output() addProductToCart = new EventEmitter()
 
   public currentProducts: Product[]
   public initialPage: number = 1
   public currentPage: number = this.initialPage
   private productsInPage: number = 12
   public amountOfPages: number = 0
-  
+
   public pageArray: number[] = []
 
 
@@ -70,4 +71,9 @@ export class ProductListComponent implements OnInit, OnChanges {
   public counter(i: number) {
     return new Array(i);
   }
+
+  public addToCart(productId: string): void {
+    this.addProductToCart.emit(productId)
+  }
+
 }
