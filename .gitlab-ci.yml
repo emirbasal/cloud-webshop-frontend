@@ -6,6 +6,7 @@ stages:
   - deploy
 
 build:
+  stage: build
   image: trion/ng-cli
   before_script:
     - npm ci
@@ -15,7 +16,9 @@ build:
     paths:
       - dist/
   tags:
-    - docker
+    - frontend
+    - angular
+    - group
 
 
 # deploy:
