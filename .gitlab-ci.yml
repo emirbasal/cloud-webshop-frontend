@@ -15,7 +15,9 @@ build:
     paths:
       - dist/
   tags:
-    - docker
+    - frontend
+    - angular
+    - group
 
 
 # deploy:
