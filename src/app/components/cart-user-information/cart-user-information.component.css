@@ -1,4 +1,8 @@
 input {
   margin-bottom: 1rem;
-  color: var(--font-color)
+  color: var(--font-color);
+}
+
+form {
+  margin-bottom: unset;
 }

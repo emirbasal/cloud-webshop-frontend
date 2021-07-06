@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: column;
     height: calc(100% - 4rem);
-    min-width: 740px;
+    min-width: 968px;
+    min-height: 914px;
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
@@ -36,6 +37,7 @@
 .row {
   margin-left: unset;
   flex-direction: unset;
+  width: unset;
 }
 
 .row .column {

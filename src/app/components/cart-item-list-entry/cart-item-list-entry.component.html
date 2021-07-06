@@ -1,11 +1,22 @@
-<td class="item-picture">
-  Produktbild
+<td class="item-image-wrapper box-shadow border-radius">
+  <img class="item-image" [src]="item.product.imageUrl">
+
 
   <span class="item-quantity">{{item.quantity}}</span>
 </td>
-<th>
-  {{item.product.name}}
-</th>
+<td class="item-info">
+  <span>
+      {{item.product.name}}
+  </span>
+  <br>
+  <span>
+      {{item.product.description}}
+  </span>
+</td>
+<td>
+  {{item.quantity * item.product.amount | number : '1.2-2'}} {{item.product.currency}}
+</td>
+
 <td>
   <button (click)="onEditQuantity(-1)" class="button-small">
       <div icon class="icon" iconName="cart-dash-fill" iconAlt="Minus Icon"></div>
@@ -16,7 +27,4 @@
   <button (click)="onRemoveItem()" class="button-small">
       <div icon class="icon" iconName="cart-x-fill" iconAlt="Entfernen Icon"></div>
   </button>
-</td>
-<td>
-  {{item.quantity * item.product.amount | number : '1.2-2'}} {{item.product.currency}}
 </td>

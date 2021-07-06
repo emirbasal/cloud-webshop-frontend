@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -8,6 +8,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class CartUserInformationComponent implements OnInit {
 
+  @Input() cartSum: number
   @ViewChild("cc") creditCartInput: HTMLInputElement
 
   public informationForm: FormGroup;
@@ -40,7 +41,7 @@ export class CartUserInformationComponent implements OnInit {
 
     /// this.userInformation.emit(this.f.name.value);
 
-    // this.onReset();
+    this.onReset();
   }
 
   public onReset(): void {
