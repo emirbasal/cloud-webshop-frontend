@@ -1,11 +1,14 @@
-<div class="product-list-entry">
-    <h5 class="product-name">
+<div class="product-list-entry border-radius box-shadow">
+    <h6 class="product-name border-radius">
         {{product.name}}
-    </h5>
-    <h5 class="product-price">
+    </h6>
+    <h6 class="product-price border-radius">
         {{product.amount}} {{ product.currency}}
-    </h5>
-    <h5 class="product-description">
-        {{product.description}}
-    </h5>
+    </h6>
+
+    <img class="product-image" [src]="product.imageUrl">
+    <button class="button-small cart-button" (click)="onAddToCart()">
+      <div icon class="icon" iconName="cart-plus-fill" iconAlt="Plus Icon"></div>
+    </button>
+
 </div>

@@ -1,0 +1,14 @@
+<table class="item-table">
+  <tbody>
+    <tr cart-item-list-entry *ngFor="let cartItem of items" [item]="cartItem" (editQuantity)="editQuantity(cartItem.product.id, $event)" (removeItem)="removeItem(cartItem.product.id)">
+    </tr>
+
+    <tr>
+      <td class="cart-sum-cell"></td>
+      <td class="cart-sum-cell">Summe</td>
+      <td class="cart-sum-cell">{{totalSum}} EUR</td>
+      <td class="cart-sum-cell"></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>

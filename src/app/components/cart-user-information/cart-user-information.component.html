@@ -1,0 +1,11 @@
+<form class="user-information-form" [formGroup]="informationForm" autocomplete="off">
+  <fieldset>
+      <label for="userMail">Mailadresse</label>
+      <input id="userMail" type="email" formControlName="email" placeholder="Mailadresse"/>
+
+      <label for="cardNumber">Kartennummer</label>
+      <input #cc id="cardNumber" type="tel" maxlength="20" formControlName="card" placeholder="Kartennummer" (keyup)="handleCreditCards()"/>
+
+      <button class="button" (click)="onSubmit()"> Jetzt {{cartSum}} Bezahlen</button>
+  </fieldset>
+</form>

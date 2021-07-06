@@ -1,7 +1,8 @@
 export class Product {
-    id: number
+    id: string
     name: string
     description: string
     amount: number
     currency: string
+    imageUrl: string
 }
