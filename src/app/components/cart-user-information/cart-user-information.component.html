@@ -4,8 +4,8 @@
       <input id="userMail" type="email" formControlName="email" placeholder="Mailadresse"/>
 
       <label for="cardNumber">Kartennummer</label>
-      <input id="cardNumber" type="text" maxlength="16" formControlName="card" placeholder="0000000000000000"/>
+      <input #cc id="cardNumber" type="tel" maxlength="20" formControlName="card" placeholder="Kartennummer" (keyup)="handleCreditCards()"/>
 
-      <input class="button" type="submit" value="Bezahlen">
+      <button class="button" (click)="onSubmit()">Bezahlen</button>
   </fieldset>
 </form>

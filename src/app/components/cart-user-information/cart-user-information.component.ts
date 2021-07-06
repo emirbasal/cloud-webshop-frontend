@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./cart-user-information.component.css']
 })
 export class CartUserInformationComponent implements OnInit {
+
+  @ViewChild("cc") creditCartInput: HTMLInputElement
 
   public informationForm: FormGroup;
   public submitted = false
@@ -17,8 +19,8 @@ export class CartUserInformationComponent implements OnInit {
 
   ngOnInit(): void {
     this.informationForm = this.formBuilder.group({
-      email: [null, Validators.required],
-      card: [null, [Validators.required, Validators.max(16)]]
+      email: ["", [Validators.required, Validators.email]],
+      card: ["", [Validators.required, Validators.pattern('^[ 0-9]*$'), Validators.minLength(17)]]
     });
   }
 
@@ -34,14 +36,45 @@ export class CartUserInformationComponent implements OnInit {
         return;
     }
 
+    console.log(this.f.card.value.replace(/\s+/g, ''))
+
     /// this.userInformation.emit(this.f.name.value);
 
-    this.onReset();
+    // this.onReset();
   }
 
   public onReset(): void {
     this.submitted = false;
     this.informationForm.reset();
+  }
+
+  // https://stackoverflow.com/a/61875882
+  public handleCreditCards(): void {
+    const { card } = this.f;
+    const { selectionStart } = this.creditCartInput
+
+    let trimmedCardNum = card.value.replace(/\s+/g, '');
+
+    if (trimmedCardNum.length > 16) {
+      trimmedCardNum = trimmedCardNum.substr(0, 16);
+    }
+
+    const partitions = [4,4,4,4];
+
+    const numbers = [];
+    let position = 0;
+    partitions.forEach(partition => {
+      const part = trimmedCardNum.substr(position, partition);
+      if (part) numbers.push(part);
+      position += partition;
+    })
+
+    card.setValue(numbers.join(' '));
+
+    /* Handle caret position if user edits the number later */
+    if (selectionStart < card.value.length - 1) {
+      this.creditCartInput.setSelectionRange(selectionStart, selectionStart, 'none');
+    }
   }
 
 }

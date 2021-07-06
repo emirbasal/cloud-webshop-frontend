@@ -8,8 +8,8 @@ import { CartItem } from 'src/app/classes/cartItem';
 })
 export class CartItemListEntryComponent implements OnInit, OnChanges {
 
-  @Output() editQuantity = new EventEmitter
-  @Output() removeItem = new EventEmitter
+  @Output() editQuantity = new EventEmitter()
+  @Output() removeItem = new EventEmitter()
 
 
   @Input() item: CartItem
