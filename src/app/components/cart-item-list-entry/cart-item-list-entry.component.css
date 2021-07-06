@@ -1,11 +1,37 @@
-.item-picture {
+.item-image-wrapper {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-left: 1.5rem;
+  background-color: var(--img-bg);
+  margin-bottom: 6px;
 }
+
+.item-image {
+  height: 120px;
+}
+
 
 .item-quantity {
   position: absolute;
-  font-size: 10px;
+  display: flex;
+  top: 3px;
+  right: 3px;
+  padding: 3px;
+  margin: 2px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: #495057a8;
+  align-items: center;
+  justify-content: center;
 }
+
+.item-info {
+  width: 220px;
+}
+
 
 button {
   margin-left: 3px;
