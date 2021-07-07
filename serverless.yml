@@ -18,15 +18,7 @@ custom:
 
 provider:
   name: aws
-  iamRoleStatements:
-    -  Effect: "Allow"
-       Action:
-         - "s3:PutObject"
-         - "s3:GetObject"
-       Resource: "arn:aws:s3:::${self:custom.bucket}-images/*"
   runtime: nodejs14.x
-
-
 
 resources:
   Resources:
@@ -106,11 +98,6 @@ resources:
           #   IncludeCookies: 'false'
           #   Bucket: mylogs.s3.amazonaws.com
           #   Prefix: myprefix
-
-    S3Assets:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: ${self:custom.bucket}-images
 
   ## In order to print out the hosted domain via `serverless info` we need to define the DomainName output for CloudFormation
   Outputs:
