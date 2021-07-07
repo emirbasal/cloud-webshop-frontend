@@ -1,16 +1,12 @@
 <td class="item-image-wrapper box-shadow border-radius">
-  <img class="item-image" [src]="item.product.imageUrl">
+  <img class="item-image" [src]="item.product.imageUrl" [routerLink]="['/product/' + item.product.id]">
 
 
   <span class="item-quantity">{{item.quantity}}</span>
 </td>
-<td class="item-info">
+<td class="item-info" [routerLink]="['/product/' + item.product.id]">
   <span>
       {{item.product.name}}
-  </span>
-  <br>
-  <span>
-      {{item.product.description}}
   </span>
 </td>
 <td>

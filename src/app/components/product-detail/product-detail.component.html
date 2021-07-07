@@ -1,1 +1,22 @@
-<p>product-detail works!</p>
+<div class="product-wrapper">
+  <div class="product-detail-wrapper border-radius box-shadow">
+      <div class="product-image-wrapper border-radius">
+          <img class="product-image" [src]="currentProduct?.imageUrl">
+      </div>
+      <div class="product-infos">
+          <h4 class="product-name">
+              {{currentProduct?.name}}
+          </h4>
+          <p class="product-description">
+              {{currentProduct?.description}}
+          </p>
+          <p class="product-price">
+              <span class="price-text">Preis: </span >{{currentProduct?.amount | number : '1.2-2'}} {{currentProduct?.currency}}
+          </p>
+
+          <button class="button cart-button" (click)="addToCart()">
+              <div icon class="icon" iconName="cart-plus-fill" iconAlt="Plus Icon"></div>
+          </button>
+      </div>
+  </div>
+</div>
