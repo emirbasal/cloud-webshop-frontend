@@ -50,6 +50,7 @@ test:karma:
 test:nglint:
   stage: test
   image: trion/ng-cli:${CLI_VERSION}
+  allow_failure: true
   before_script:
     - npm ci
   script:

@@ -60,7 +60,7 @@ export class CartUserInformationComponent implements OnInit {
       trimmedCardNum = trimmedCardNum.substr(0, 16);
     }
 
-    const partitions = [4,4,4,4];
+    const partitions = [4, 4, 4, 4];
 
     const numbers = [];
     let position = 0;
