@@ -15,6 +15,7 @@ import { CartItemListEntryComponent } from './components/cart-item-list-entry/ca
 import { CartUserInformationComponent } from './components/cart-user-information/cart-user-information.component';
 import { IconComponent } from './components/icon/icon.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

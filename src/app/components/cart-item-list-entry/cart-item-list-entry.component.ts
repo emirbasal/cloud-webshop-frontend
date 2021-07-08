@@ -11,8 +11,9 @@ export class CartItemListEntryComponent implements OnInit, OnChanges {
   @Output() editQuantity = new EventEmitter()
   @Output() removeItem = new EventEmitter()
 
-
   @Input() item: CartItem
+
+  public base64Base: string = "data:image/png;base64,"
 
   constructor() { }
 

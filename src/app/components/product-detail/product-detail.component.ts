@@ -15,6 +15,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   public currentProduct: Product
   private productId: string = ""
   private productIdSub: Subscription = Subscription.EMPTY
+  private currentProductSub: Subscription = Subscription.EMPTY
+
+  public base64Base: string = "data:image/png;base64,"
 
   constructor(private apiService: ApiService, private cartService: CartService, private route: ActivatedRoute) { }
 
@@ -22,8 +25,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.productIdSub = this.route.paramMap.subscribe((params: ParamMap) => {
       this.productId = params.get('id');
 
-      this.currentProduct = this.apiService.getProductData(this.productId)
-    });
+      this.apiService.requestProduct(this.productId)
+    })
+
+    this.currentProductSub = this.apiService.getRequestedProduct().subscribe((product: Product) => {
+      this.currentProduct = product
+    })
   }
 
   public addToCart(): void {
@@ -32,5 +39,6 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.productIdSub.unsubscribe()
+    this.currentProductSub.unsubscribe()
   }
 }

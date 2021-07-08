@@ -1,41 +1,56 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { CartItem } from '../classes/cartItem';
 import { Product } from '../classes/product';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CartService {
+export class CartService implements OnDestroy {
 
   private productsInCart: CartItem[] = []
+  private parsedCart: { [id: string]: CartItem } = {}
   public currentSum: number = 0
 
   public cartItemCounter: BehaviorSubject<number> = new BehaviorSubject(0)
   public cartItems: BehaviorSubject<CartItem[]> = new BehaviorSubject([])
   public cartSum: BehaviorSubject<number> = new BehaviorSubject(0)
 
+  private requestedProductsSub: Subscription = Subscription.EMPTY
+
   private itemsInCart = 0
 
-  constructor() {
+  constructor(private apiService: ApiService) {
     this.setupLocalStorage()
   }
 
   private setupLocalStorage(): void {
-    if (localStorage.getItem("userCart") === null) {
-      let emptyCart = {}
+    this.requestedProductsSub = this.apiService.getRequestedProducts().subscribe((products: Product[]) => {
+      if (products != null) {
+        for (let product of products) {
+          this.productsInCart.push({
+            quantity: this.parsedCart[product.id].quantity,
+            product
+          })
+        }
+      }
+    })
+    this.apiService.getIsReady().subscribe((ready: boolean) => {
+      if (ready) {
+        if (localStorage.getItem("userCart") === null) {
+          let emptyCart = {}
 
-      localStorage.setItem("userCart", JSON.stringify(emptyCart))
+          localStorage.setItem("userCart", JSON.stringify(emptyCart))
+        } else {
+          this.parsedCart = JSON.parse(localStorage.getItem("userCart"))
 
-    } else {
-      let parsedCart = JSON.parse(localStorage.getItem("userCart"))
+          this.apiService.requestMultipleProducts(Object.keys(this.parsedCart))
 
-      Object.keys(parsedCart).forEach((key: string) => {
-        this.productsInCart.push(parsedCart[key])
-      });
-
-      this.calcSum()
-    }
+          this.calcSum()
+        }
+      }
+    })
   }
 
   private updateLocalStorage(): void {
@@ -43,8 +58,7 @@ export class CartService {
 
     this.productsInCart.forEach((item: CartItem) => {
       updatedCart[item.product.id] = {
-        quantity: item.quantity,
-        product: item.product
+        quantity: item.quantity
       }
     })
 
@@ -128,5 +142,9 @@ export class CartService {
 
     this.updateLocalStorage()
     this.calcSum()
+  }
+
+  ngOnDestroy() {
+    this.requestedProductsSub.unsubscribe()
   }
 }

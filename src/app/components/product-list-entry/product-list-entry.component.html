@@ -6,7 +6,7 @@
         {{product.amount / 100 | number : '1.2-2'}} {{ product.currency}}
     </h6>
 
-    <img class="product-image" [src]="product.imageUrl" [routerLink]="['/product/' + product.id]">
+    <img class="product-image" [src]="base64Base + product.image" [routerLink]="['/product/' + product.id]">
     <button class="button-small cart-button" (click)="onAddToCart()">
       <div icon class="icon" iconName="cart-plus-fill" iconAlt="Plus Icon"></div>
     </button>
