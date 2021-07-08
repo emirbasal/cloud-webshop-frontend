@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Product } from '../classes/product';
 
 
-/* tslint:disable */
+/* tslint:disable max-line-length */
 @Injectable({
   providedIn: 'root'
 })
