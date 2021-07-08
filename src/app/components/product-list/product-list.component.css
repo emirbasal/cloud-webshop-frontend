@@ -11,7 +11,6 @@
   padding: 16px;
 }
 
-
 .row {
   margin-left: unset;
   flex-direction: unset;
@@ -28,7 +27,6 @@
   padding: unset;
 }
 
-
 .pagination-buttons {
   display: flex;
   margin-top: auto;
@@ -43,4 +41,3 @@
   font-size: 1.1rem;
   line-height: 3.8rem;
 }
-

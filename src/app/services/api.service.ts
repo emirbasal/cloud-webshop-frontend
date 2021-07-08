@@ -13,7 +13,7 @@ export class ApiService implements OnDestroy {
   private productsUrl: string = "api/products/"
 
   private productData: BehaviorSubject<Product[]> = new BehaviorSubject(null)
-  private products: Product[] = []
+  private allProducts: Product[] = []
 
   private requestedProduct: BehaviorSubject<Product> = new BehaviorSubject(null)
   private requestedProducts: BehaviorSubject<Product[]> = new BehaviorSubject(null)
@@ -30,7 +30,7 @@ export class ApiService implements OnDestroy {
   private getProductData(): void {
     this.http.get(this.baseUrl + this.productsUrl).subscribe((data: Product[]) => {
       this.productData.next(data)
-      this.products = data
+      this.allProducts = data
       this.$ready.next(true)
     })
   }
@@ -44,27 +44,27 @@ export class ApiService implements OnDestroy {
   }
 
   public requestProduct(id: string): void {
-    this.readySubProduct = this.$ready.subscribe((gotData: boolean) => {
-      if (gotData) {
-        let productIndex = this.products.findIndex((product: Product) => {
+    this.readySubProduct = this.$ready.subscribe((isReady: boolean) => {
+      if (isReady) {
+        let productIndex = this.allProducts.findIndex((product: Product) => {
           return id === product.id
         })
 
-        this.requestedProduct.next(this.products[productIndex])
+        this.requestedProduct.next(this.allProducts[productIndex])
         this.readySubProduct.unsubscribe()
       }
     })
   }
 
   public requestMultipleProducts(ids: any): void {
-    this.readySubProducts = this.$ready.subscribe((gotData: boolean) => {
-      if (gotData) {
+    this.readySubProducts = this.$ready.subscribe((isReady: boolean) => {
+      if (isReady) {
         const requestedProducts = []
         for (let id of ids) {
-          let productIndex = this.products.findIndex((product: Product) => {
+          let productIndex = this.allProducts.findIndex((product: Product) => {
             return id === product.id
           })
-          requestedProducts.push(this.products[productIndex])
+          requestedProducts.push(this.allProducts[productIndex])
         }
 
         this.requestedProducts.next(requestedProducts)
