@@ -6,6 +6,6 @@
       <label for="cardNumber">Kartennummer</label>
       <input #cc id="cardNumber" type="tel" maxlength="20" formControlName="card" placeholder="Kartennummer" (keyup)="handleCreditCards()"/>
 
-      <button class="button" (click)="onSubmit()"> Jetzt {{cartSum}} Bezahlen</button>
+      <button class="button" (click)="onSubmit()"> Jetzt {{cartSum / 100 | number : '1.2-2'}} Bezahlen</button>
   </fieldset>
 </form>

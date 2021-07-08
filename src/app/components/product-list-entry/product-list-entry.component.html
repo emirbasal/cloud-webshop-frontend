@@ -3,7 +3,7 @@
         {{product.name}}
     </h6>
     <h6 class="product-price border-radius">
-        {{product.amount | number : '1.2-2'}} {{ product.currency}}
+        {{product.amount / 100 | number : '1.2-2'}} {{ product.currency}}
     </h6>
 
     <img class="product-image" [src]="product.imageUrl" [routerLink]="['/product/' + product.id]">

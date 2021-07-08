@@ -10,7 +10,7 @@
   </span>
 </td>
 <td>
-  {{item.quantity * item.product.amount | number : '1.2-2'}} {{item.product.currency}}
+  {{item.quantity * item.product.amount / 100 | number : '1.2-2'}} {{item.product.currency}}
 </td>
 
 <td>
