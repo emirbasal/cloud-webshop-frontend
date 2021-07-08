@@ -12,7 +12,7 @@
     },
     "array-type": false,
     "arrow-return-shorthand": true,
-    "curly": true,
+    "curly": false,
     "deprecation": {
       "severity": "warning"
     },
@@ -32,6 +32,7 @@
       true,
       140
     ],
+    "prefer-const": false,
     "member-ordering": [
       true,
       {
@@ -54,7 +55,8 @@
     "no-empty": false,
     "no-inferrable-types": [
       true,
-      "ignore-params"
+      "ignore-params",
+      "ignore-properties"
     ],
     "no-non-null-assertion": true,
     "no-redundant-jsdoc": true,
@@ -82,7 +84,7 @@
       }
     },
     "typedef": [
-      true,
+      false,
       "call-signature"
     ],
     "typedef-whitespace": {
@@ -142,7 +144,7 @@
       "camelCase"
     ],
     "component-selector": [
-      true,
+      false,
       "element",
       "app",
       "kebab-case"

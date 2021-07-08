@@ -36,7 +36,7 @@ export class ProductListComponent implements OnInit, OnChanges {
 
     this.currentProducts = this.products.slice(0, 12)
 
-    for(let i = 0; i < this.amountOfPages; i++) {
+    for (let i = 0; i < this.amountOfPages; i++) {
       this.pageArray.push(i + 1)
     }
   }

@@ -24,7 +24,7 @@ export class CartItemListComponent implements OnInit, OnChanges {
   }
 
   public editQuantity(productId: string, amount: number): void {
-    this.changeItemQuantity.emit({ id: productId, amount: amount})
+    this.changeItemQuantity.emit({ id: productId, amount})
   }
 
   public removeItem(productId: string): void {
