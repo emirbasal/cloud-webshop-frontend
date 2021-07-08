@@ -1,12 +1,12 @@
 <div class="product-list-entry border-radius box-shadow">
-    <h6 class="product-name border-radius">
+    <h6 class="product-name border-radius" [routerLink]="['/product/' + product.id]">
         {{product.name}}
     </h6>
     <h6 class="product-price border-radius">
-        {{product.amount}} {{ product.currency}}
+        {{product.amount | number : '1.2-2'}} {{ product.currency}}
     </h6>
 
-    <img class="product-image" [src]="product.imageUrl">
+    <img class="product-image" [src]="product.imageUrl" [routerLink]="['/product/' + product.id]">
     <button class="button-small cart-button" (click)="onAddToCart()">
       <div icon class="icon" iconName="cart-plus-fill" iconAlt="Plus Icon"></div>
     </button>

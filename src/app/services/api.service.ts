@@ -40,7 +40,10 @@ export class ApiService {
     return this.products
   }
 
-  public getProductData(id: number): any {
-    return this.products[id - 1]
+  public getProductData(id: string): any {
+    let productIndex = this.products.findIndex((product: Product) => {
+      return id === product.id
+    })
+    return this.products[productIndex]
   }
 }

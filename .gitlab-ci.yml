@@ -18,6 +18,64 @@ build:
     - angular
 
 
+variables:
+  CLI_VERSION: 11.1.4
+
+test:karma:
+  stage: test
+  image: trion/ng-cli-karma:${CLI_VERSION}
+  allow_failure: false
+  before_script:
+    - npm ci
+  script:
+    - ng test --progress false --watch false
+  tags:
+    - frontend
+    - angular
+
+
+# test:e2e:
+#   stage: test
+#   image: trion/ng-cli-e2e:${CLI_VERSION}
+#   allow_failure: false
+#   before_script:
+#     - npm ci
+#   script:
+#     - ng e2e
+#   tags:
+#     - frontend
+#     - angular
+
+
+test:nglint:
+  stage: test
+  image: trion/ng-cli:${CLI_VERSION}
+  before_script:
+    - npm ci
+  script:
+    - ng lint
+  tags:
+    - frontend
+    - angular
+
+
+# lint:sonar:
+#   stage: test
+#   image: trion/ng-cli:${CLI_VERSION}
+#   script:
+#   - npm install -g sonarqube-scanner
+#   - >
+#     sonar-scanner
+#     -Dsonar.projectKey=demo
+#     -Dsonar.organization=everflux-github
+#     -Dsonar.host.url=https://sonarcloud.io
+#     -Dsonar.login=covfefe
+#     -Dsonar.typescript.lcov.reportPaths=coverage/lcov/lcov.info
+#     -Dsonar.sourceEncoding=UTF-8
+#     -Dsonar.sources=src/app
+#     -Dsonar.exclusions=**/node_modules/**,**/*.spec.ts
+#     -Dsonar.tests=src/app
+#     -Dsonar.test.inclusions=**/*.spec.ts
 
 # deploy:
 #   stage: 'deploy'

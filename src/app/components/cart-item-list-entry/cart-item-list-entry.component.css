@@ -13,7 +13,6 @@
   height: 120px;
 }
 
-
 .item-quantity {
   position: absolute;
   display: flex;
@@ -32,8 +31,11 @@
   width: 220px;
 }
 
-
 button {
   margin-left: 3px;
   margin-right: 3px;
+}
+
+.item-info:hover, .item-image:hover {
+  cursor: pointer;
 }

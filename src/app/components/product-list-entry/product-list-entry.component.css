@@ -41,6 +41,10 @@
   height: 200px;
 }
 
+.product-name:hover, .product-image:hover {
+  cursor: pointer;
+}
+
 
 @media only screen and (min-width: 768px) and (max-width: 1026px) {
     .product-list-entry {
