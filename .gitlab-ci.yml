@@ -21,17 +21,17 @@ build:
 variables:
   CLI_VERSION: 11.1.4
 
-test:karma:
-  stage: test
-  image: trion/ng-cli-karma:${CLI_VERSION}
-  allow_failure: false
-  before_script:
-    - npm ci
-  script:
-    - ng test --progress false --watch false
-  tags:
-    - frontend
-    - angular
+# test:karma:
+#   stage: test
+#   image: trion/ng-cli-karma:${CLI_VERSION}
+#   allow_failure: true
+#   before_script:
+#     - npm ci
+#   script:
+#     - ng test --progress false --watch false
+#   tags:
+#     - frontend
+#     - angular
 
 
 # test:e2e:

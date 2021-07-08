@@ -87,7 +87,7 @@ export class CartService {
     if (productIndex > -1) {
       this.productsInCart[productIndex].quantity += 1
     } else {
-      let newCartItem: CartItem = { quantity: 1, product: product}
+      let newCartItem: CartItem = { quantity: 1, product}
       this.productsInCart.push(newCartItem)
     }
 
@@ -116,7 +116,7 @@ export class CartService {
     });
 
     if (productIndex > -1) {
-      if (this.productsInCart[productIndex].quantity + quantity == 0) {
+      if (this.productsInCart[productIndex].quantity + quantity === 0) {
         this.removeFromCart(productId)
       } else {
         this.productsInCart[productIndex].quantity += quantity

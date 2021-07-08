@@ -16,8 +16,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   private productId: string = ""
   private productIdSub: Subscription = Subscription.EMPTY
 
-  constructor( private apiService: ApiService, private cartService: CartService,
-    private route: ActivatedRoute) { }
+  constructor(private apiService: ApiService, private cartService: CartService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.productIdSub = this.route.paramMap.subscribe((params: ParamMap) => {

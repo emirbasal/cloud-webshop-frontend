@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../classes/product';
 
+
+/* tslint:disable */
 @Injectable({
   providedIn: 'root'
 })
