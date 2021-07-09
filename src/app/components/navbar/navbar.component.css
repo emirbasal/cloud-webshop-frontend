@@ -1,16 +1,19 @@
 .navbar {
-    height: 42px;
+    height: 100%;
+    position: absolute;
+    width: 75px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--c9);
-    padding: 5px;
+    flex-direction: column;
+    left: -1px;
 }
 
 button {
-    margin-left: 3px;
-    margin-right: 3px;
+    margin: 3px;
     position: relative;
+    height: 60px;
+    width: 60px;
 }
 
 .cart-counter {
@@ -18,4 +21,16 @@ button {
     top: -5px;
     right: 1px;
     font-size: 10px;
+}
+
+.button-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--c7);
+  padding: 10px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  position: fixed;
 }

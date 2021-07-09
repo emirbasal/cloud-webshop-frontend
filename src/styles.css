@@ -20,11 +20,10 @@ html, body {
     margin: 0;
     padding: 0;
     color: var(--font-color);
+    height: 100%;
 }
 
-
 body {
-    min-height: 100%;
     background-color: var(--c4);
 }
 
@@ -37,8 +36,8 @@ td, th {
 }
 
 .box-shadow {
-    -webkit-box-shadow: 5px 5px 2px -2px #343a40db;
-    box-shadow: 5px 5px 2px -2px #343a40db;
+    -webkit-box-shadow: 2px 2px 1px 0px #343a40db;
+    box-shadow: 2px 2px 1px 0px #343a40db;
 }
 
 .button-small {
