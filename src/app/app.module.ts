@@ -16,7 +16,8 @@ import { CartUserInformationComponent } from './components/cart-user-information
 import { IconComponent } from './components/icon/icon.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({timeOut: 3000}),
   ],
   providers: [],
   bootstrap: [AppComponent]

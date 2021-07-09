@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { CartItem } from '../classes/cartItem';
 import { Product } from '../classes/product';
 import { ApiService } from './api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class CartService implements OnDestroy {
 
   private itemsInCart = 0
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private toastr: ToastrService) {
     this.setupLocalStorage()
   }
 
@@ -98,11 +99,13 @@ export class CartService implements OnDestroy {
       return product.id === item.product.id
     });
 
-    if (productIndex > -1) {
+    if (productIndex >= 0) {
       this.productsInCart[productIndex].quantity += 1
+      this.toastr.success('wurde nochmals zum Warenkorb hinzugefügt', product.name)
     } else {
       let newCartItem: CartItem = { quantity: 1, product}
       this.productsInCart.push(newCartItem)
+      this.toastr.success('wurde zum Warenkorb hinzugefügt', product.name)
     }
 
     this.updateLocalStorage()
@@ -114,14 +117,13 @@ export class CartService implements OnDestroy {
       return productId === item.product.id
     });
 
-    if (productIndex > -1) {
+    if (productIndex >= 0) {
+      this.toastr.success('wurde vom Warenkorb Warenkorb entfernt', this.productsInCart[productIndex].product.name);
       this.productsInCart.splice(productIndex, 1)
-    } else {
-      return
-    }
 
-    this.updateLocalStorage()
-    this.calcSum()
+      this.updateLocalStorage()
+      this.calcSum()
+    }
   }
 
   public updateQuantity(productId: string, quantity: number): void {
@@ -129,19 +131,17 @@ export class CartService implements OnDestroy {
       return productId === item.product.id
     });
 
-    if (productIndex > -1) {
-      if (this.productsInCart[productIndex].quantity + quantity === 0) {
+    if (productIndex >= 0) {
+      if (this.productsInCart[productIndex].quantity + quantity <= 0) {
         this.removeFromCart(productId)
       } else {
         this.productsInCart[productIndex].quantity += quantity
+        this.toastr.success('Menge wurde angepasst', this.productsInCart[productIndex].product.name)
       }
 
-    } else {
-      return
+      this.updateLocalStorage()
+      this.calcSum()
     }
-
-    this.updateLocalStorage()
-    this.calcSum()
   }
 
   ngOnDestroy() {

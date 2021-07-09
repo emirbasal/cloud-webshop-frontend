@@ -2,6 +2,7 @@
 @import 'milligram';
 @import 'normalize.css';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+@import '~ngx-toastr/toastr';
 
 :root {
     --bg-color: #ADB5BD;
