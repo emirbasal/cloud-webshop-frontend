@@ -4,5 +4,7 @@ export class Product {
     description: string
     amount: number
     currency: string
-    imageUrl: string
+    image: string
+    createdAt: number
+    updatedAt: number
 }

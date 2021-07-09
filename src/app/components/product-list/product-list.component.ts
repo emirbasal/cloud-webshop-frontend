@@ -26,7 +26,9 @@ export class ProductListComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.calcPages()
+    if (changes.products.currentValue != null) {
+      this.calcPages()
+    }
   }
 
   private calcPages(): void {

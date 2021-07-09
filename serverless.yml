@@ -2,14 +2,9 @@ service: webshop
 
 plugins:
   - serverless-single-page-app-plugin
-  # - serverless-dotenv-plugin
   - serverless-s3-sync
 
 custom:
-  # s3Bucket: cc-webshop-frontend
-  # s3LocalPath: 'dist/webshop/**'
-  # dotenv:
-    # useDotenv: true
   bucket: cc-webshop-frontend
   s3Sync:
     - bucketName: cc-webshop-frontend

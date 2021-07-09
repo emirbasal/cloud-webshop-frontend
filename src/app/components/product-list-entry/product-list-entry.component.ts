@@ -8,9 +8,11 @@ import { Product } from 'src/app/classes/product';
 })
 export class ProductListEntryComponent implements OnInit {
 
-  @Output() addToCart = new EventEmitter()
+  public base64Base: string = "data:image/png;base64,"
 
+  @Output() addToCart = new EventEmitter()
   @Input() product: Product
+
   constructor() { }
 
   ngOnInit(): void {
