@@ -101,11 +101,11 @@ export class CartService implements OnDestroy {
 
     if (productIndex >= 0) {
       this.productsInCart[productIndex].quantity += 1
-      this.toastr.success('wurde nochmals zum Warenkorb hinzugefügt', product.name)
+      this.toastr.success(`${product.name} wurde erneut hinzugefügt`, 'Warenkorb')
     } else {
       let newCartItem: CartItem = { quantity: 1, product}
       this.productsInCart.push(newCartItem)
-      this.toastr.success('wurde zum Warenkorb hinzugefügt', product.name)
+      this.toastr.success(`${product.name} wurde hinzugefügt`, 'Warenkorb')
     }
 
     this.updateLocalStorage()
@@ -118,7 +118,7 @@ export class CartService implements OnDestroy {
     });
 
     if (productIndex >= 0) {
-      this.toastr.success('wurde vom Warenkorb Warenkorb entfernt', this.productsInCart[productIndex].product.name);
+      this.toastr.success(`${this.productsInCart[productIndex].product.name} wurde entfernt`, 'Warenkorb');
       this.productsInCart.splice(productIndex, 1)
 
       this.updateLocalStorage()
@@ -136,7 +136,7 @@ export class CartService implements OnDestroy {
         this.removeFromCart(productId)
       } else {
         this.productsInCart[productIndex].quantity += quantity
-        this.toastr.success('Menge wurde angepasst', this.productsInCart[productIndex].product.name)
+        this.toastr.success(`Menge von ${this.productsInCart[productIndex].product.name} wurde angepasst`, 'Warenkorb')
       }
 
       this.updateLocalStorage()

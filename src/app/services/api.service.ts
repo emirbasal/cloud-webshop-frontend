@@ -30,12 +30,12 @@ export class ApiService implements OnDestroy {
 
   private getProductData(): void {
     this.http.get(this.baseUrl + this.productsUrl).subscribe((data: Product[]) => {
-      this.toastr.info('Alle Produkte wurden geladen')
+      this.toastr.info('wurden geladen', 'Produkte')
       this.productData.next(data)
       this.allProducts = data
       this.$ready.next(true)
     }, error => {
-      this.toastr.error('Es ist ein Fehler beim Laden der Produkte aufgetreten')
+      this.toastr.error('konnten nicht geladen werden', 'Produkte')
     })
   }
 
