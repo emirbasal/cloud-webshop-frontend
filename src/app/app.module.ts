@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ToastrModule } from 'ngx-toastr';
     CartItemListComponent,
     CartItemListEntryComponent,
     CartUserInformationComponent,
-    IconComponent
+    IconComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,

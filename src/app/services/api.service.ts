@@ -4,9 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Order } from '../classes/order';
-import { CartItem } from '../classes/cartItem';
-import { OrderItem } from '../classes/orderItem';
-
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -27,6 +25,7 @@ export class ApiService implements OnDestroy {
   // BehaviorSubjects to next requested product/s to subscribers
   private requestedProduct: BehaviorSubject<Product> = new BehaviorSubject(null)
   private requestedProducts: BehaviorSubject<Product[]> = new BehaviorSubject(null)
+  private requestedOrder: BehaviorSubject<Order> = new BehaviorSubject(null)
 
   // BehaviorSubject to next orderIds to subscribers
   private createdOrders: BehaviorSubject<any> = new BehaviorSubject(null)
@@ -42,7 +41,7 @@ export class ApiService implements OnDestroy {
   private readySubProducts: Subscription = Subscription.EMPTY
 
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {
+  constructor(private http: HttpClient, private toastr: ToastrService, private router: Router) {
     this.getProductData()
   }
 
@@ -114,22 +113,32 @@ export class ApiService implements OnDestroy {
       this.createdOrders.next(createdOrder.id)
 
       setTimeout(() => {
-          this.getInvoice(createdOrder.id)
-        }, 2500)
+          this.router.navigate(['order/' + createdOrder.id])
+        }, 1500)
+
       }, error => {
         console.log(error)
         this.toastr.error('wurde nicht aufgegeben', 'Bestellung')
       })
   }
 
-
   public getCreatedOrders(): Observable<any> {
     return this.createdOrders.asObservable()
   }
 
-  public getInvoice(orderId: string): void {
+  public requestInvoice(orderId: string): void {
     this.http.get(this.baseUrl + this.invoiceUrl + orderId).subscribe((order: any) => {
-      this.toastr.success('war erfolgreich', 'Bestellung')
+      switch (order.status) {
+        case 'pending':
+          this.toastr.success('ist in Bearbeitung', 'Bestellung')
+          break
+        case 'accepted':
+          this.toastr.success('war erfolgreich', 'Bestellung')
+          break
+        default:
+          break
+      }
+      this.requestedOrder.next(order)
     }, error => {
       console.log(error)
       this.toastr.error('wurde abgelehnt', 'Bestellung')
@@ -140,6 +149,10 @@ export class ApiService implements OnDestroy {
 
   public getOrderDeclined(): Observable<any> {
     return this.orderDeclined.asObservable()
+  }
+
+  public getRequestedOrder(): Observable<any> {
+    return this.requestedOrder.asObservable()
   }
 
   ngOnDestroy() {

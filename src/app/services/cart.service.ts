@@ -6,6 +6,7 @@ import { Order } from '../classes/order';
 import { OrderItem } from '../classes/orderItem';
 import { ApiService } from './api.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ export class CartService implements OnDestroy {
   private cachedProductsInCart: CartItem[] = []
 
 
-  constructor(private apiService: ApiService, private toastr: ToastrService) {
+  constructor(private apiService: ApiService, private toastr: ToastrService, private router: Router) {
     this.setupLocalStorage()
     this.createdOrdersSub = this.apiService.getCreatedOrders().subscribe((orderId: string) => {
       if (orderId != null) {
@@ -47,19 +48,19 @@ export class CartService implements OnDestroy {
     })
 
     this.orderDeclinedSub = this.apiService.getOrderDeclined().subscribe(() => {
-      // Create deep copy of cache
-      this.productsInCart = JSON.parse(JSON.stringify(this.cachedProductsInCart))
+      if (this.cachedProductsInCart.length > 0) {
+        this.router.navigate(['cart'])
 
-      // Restore cart
-      this.updateLocalStorage()
-      this.calcSum()
+        // Create deep copy of cache
+        this.productsInCart = JSON.parse(JSON.stringify(this.cachedProductsInCart))
 
-      this.cachedProductsInCart = []
-
-      this.toastr.info("wurde wiederhergestellt", 'Warenkorb')
+        // Restore cart
+        this.updateLocalStorage()
+        this.calcSum()
+        this.cachedProductsInCart = []
+        this.toastr.info("wurde wiederhergestellt", 'Warenkorb')
+      }
     })
-
-
   }
 
   private setupLocalStorage(): void {
@@ -202,6 +203,8 @@ export class CartService implements OnDestroy {
     }
 
     let order: Order = {
+      id: '',
+      invoice: '',
       amount: sum,
       currency,
       email,
