@@ -161,8 +161,8 @@ export class CartService implements OnDestroy {
     });
 
     if (productIndex >= 0) {
-      this.productsInCart.splice(productIndex, 1)
       this.toastr.success(`${this.productsInCart[productIndex].product.name} wurde entfernt`, 'Warenkorb');
+      this.productsInCart.splice(productIndex, 1)
 
       this.updateLocalStorage()
       this.calcSum()
