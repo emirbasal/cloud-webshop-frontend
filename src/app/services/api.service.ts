@@ -14,19 +14,30 @@ import { OrderItem } from '../classes/orderItem';
 })
 export class ApiService implements OnDestroy {
 
+  // API urls and extensions
   private baseUrl: string = "https://1z3pci4hcf.execute-api.us-east-1.amazonaws.com/dev/"
   private productsUrl: string = "api/products/"
-  private orderUrl: string = "api/orders"
+  private ordersUrl: string = "api/orders"
+  private invoiceUrl: string = "/api/orders/invoice/"
 
+  // BehaviorSubject to next all products to subscribers
   private productData: BehaviorSubject<Product[]> = new BehaviorSubject(null)
   private allProducts: Product[] = []
 
+  // BehaviorSubjects to next requested product/s to subscribers
   private requestedProduct: BehaviorSubject<Product> = new BehaviorSubject(null)
   private requestedProducts: BehaviorSubject<Product[]> = new BehaviorSubject(null)
+
+  // BehaviorSubject to next orderIds to subscribers
   private createdOrders: BehaviorSubject<any> = new BehaviorSubject(null)
 
+  // Subject to tell subscribers an order was declined (likely because of card)
+  private orderDeclined: Subject<any> = new Subject()
+
+  // BehaviorSubject to tell subscribers if the get request for products was successful
   private $ready: BehaviorSubject<boolean> = new BehaviorSubject(false)
 
+  // Subscriptions for products to wait until $ready is true
   private readySubProduct: Subscription = Subscription.EMPTY
   private readySubProducts: Subscription = Subscription.EMPTY
 
@@ -35,6 +46,7 @@ export class ApiService implements OnDestroy {
     this.getProductData()
   }
 
+  // Sends the initial request to get all products from the specified api endpoint and nexts the returned value
   private getProductData(): void {
     this.http.get(this.baseUrl + this.productsUrl).subscribe((data: Product[]) => {
       this.toastr.info('wurden geladen', 'Produkte')
@@ -54,6 +66,7 @@ export class ApiService implements OnDestroy {
     return this.productData.asObservable()
   }
 
+    // Nexts specified product by id if all products were already requested
   public requestProduct(id: string): void {
     this.readySubProduct = this.$ready.subscribe((isReady: boolean) => {
       if (isReady) {
@@ -67,6 +80,7 @@ export class ApiService implements OnDestroy {
     })
   }
 
+  // Nexts specified products by ids if all products were already requested
   public requestMultipleProducts(ids: any): void {
     this.readySubProducts = this.$ready.subscribe((isReady: boolean) => {
       if (isReady) {
@@ -92,41 +106,40 @@ export class ApiService implements OnDestroy {
     return this.requestedProducts.asObservable()
   }
 
-  public createOrder(sum: number, currency: string, email: string, items: CartItem[], cardNumber: string): void {
-    let adjustedItems: any[] = []
+  // Creates an order in the backend and after a set time requests the corresponding invoice
+  public postOrder(order: Order): void {
+    this.http.post(this.baseUrl + this.ordersUrl, order).subscribe((createdOrder: any) => {
+      this.toastr.success('wurde aufgegeben', 'Bestellung')
 
-    for (let cartItem of items) {
-      let adjustedItem: OrderItem = {
-        amount: cartItem.product.amount * cartItem.quantity,
-        currency: cartItem.product.currency,
-        description: cartItem.product.name,
-        quantity: cartItem.quantity
-      }
+      this.createdOrders.next(createdOrder.id)
 
-      adjustedItems.push(adjustedItem)
-    }
-
-    let order: Order = {
-      amount: sum,
-      currency: currency,
-      email: email,
-      items: adjustedItems,
-      status: 'new',
-      card: {
-        id: '',
-        number: cardNumber
-      }
-    }
-
-    this.http.post(this.orderUrl, order).subscribe((createdOrder: any) => {
-      console.log(createdOrder)
-
-      this.createdOrders.next(createdOrder)
-    })
+      setTimeout(() => {
+          this.getInvoice(createdOrder.id)
+        }, 2500)
+      }, error => {
+        console.log(error)
+        this.toastr.error('wurde nicht aufgegeben', 'Bestellung')
+      })
   }
+
 
   public getCreatedOrders(): Observable<any> {
     return this.createdOrders.asObservable()
+  }
+
+  public getInvoice(orderId: string): void {
+    this.http.get(this.baseUrl + this.invoiceUrl + orderId).subscribe((order: any) => {
+      this.toastr.success('war erfolgreich', 'Bestellung')
+    }, error => {
+      console.log(error)
+      this.toastr.error('wurde abgelehnt', 'Bestellung')
+
+      this.orderDeclined.next()
+    })
+  }
+
+  public getOrderDeclined(): Observable<any> {
+    return this.orderDeclined.asObservable()
   }
 
   ngOnDestroy() {
