@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class CartUserInformationComponent implements OnInit {
 
   @Input() cartSum: number
+  @Output() createOrder = new EventEmitter()
   @ViewChild("cc") creditCartInput: HTMLInputElement
 
   public informationForm: FormGroup;
@@ -21,11 +22,11 @@ export class CartUserInformationComponent implements OnInit {
   ngOnInit(): void {
     this.informationForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
-      card: ["", [Validators.required, Validators.pattern('^[ 0-9]*$'), Validators.minLength(17)]]
+      card: ["", [Validators.required, Validators.pattern('^[ 0-9]*$'), Validators.minLength(19)]]
     });
   }
 
-  get f(): FormGroup["controls"] {
+  get formGroupControls(): FormGroup["controls"] {
     return this.informationForm.controls;
   }
 
@@ -37,11 +38,10 @@ export class CartUserInformationComponent implements OnInit {
         return;
     }
 
-    console.log(this.f.card.value.replace(/\s+/g, ''))
-
-    /// this.userInformation.emit(this.f.name.value);
-
-    this.onReset();
+    this.createOrder.emit({
+      cardNumber: this.formGroupControls.card.value.replace(/\s+/g, ''),
+      email: this.formGroupControls.email.value
+    })
   }
 
   public onReset(): void {
@@ -51,7 +51,7 @@ export class CartUserInformationComponent implements OnInit {
 
   // https://stackoverflow.com/a/61875882
   public handleCreditCards(): void {
-    const { card } = this.f;
+    const { card } = this.formGroupControls;
     const { selectionStart } = this.creditCartInput
 
     let trimmedCardNum = card.value.replace(/\s+/g, '');

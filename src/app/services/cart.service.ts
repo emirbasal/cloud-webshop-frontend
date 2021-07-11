@@ -203,8 +203,8 @@ export class CartService implements OnDestroy {
 
     let order: Order = {
       amount: sum,
-      currency: currency,
-      email: email,
+      currency,
+      email,
       items: adjustedItems,
       status: 'new',
       card: {

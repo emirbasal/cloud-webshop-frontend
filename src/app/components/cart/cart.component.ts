@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CartItem } from 'src/app/classes/cartItem';
 import { CartService } from 'src/app/services/cart.service';
+import { CartUserInformationComponent } from '../cart-user-information/cart-user-information.component';
 
 @Component({
   selector: 'app-cart',
@@ -10,11 +11,17 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CartComponent implements OnInit, OnDestroy {
 
+  @ViewChild('cartUserInformation') userInformation: CartUserInformationComponent
+
   private itemsInCartSub: Subscription = Subscription.EMPTY
   private currentSumSub: Subscription = Subscription.EMPTY
 
   public itemsInCart: CartItem[] = []
   public currentSumCart: number = 0
+
+  private shopCurrency: string = 'EUR'
+
+  private resetUserInputSub: Subscription = Subscription.EMPTY
 
   constructor(private cartService: CartService) { }
 
@@ -26,6 +33,11 @@ export class CartComponent implements OnInit, OnDestroy {
     this.currentSumSub = this.cartService.getCurrentSum().subscribe((sum: number) => {
       this.currentSumCart = sum
     })
+
+    this.resetUserInputSub = this.cartService.getResetInput().subscribe(() => {
+      this.userInformation.onReset()
+    })
+
   }
 
   public changeQuantity(productId: string, amount: number): void {
@@ -36,10 +48,14 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartService.removeFromCart(productId)
   }
 
+  public createOrder(cardNumber: string, email: string): void {
+    this.cartService.createOrder(this.currentSumCart, this.shopCurrency, email, this.itemsInCart, cardNumber)
+  }
 
   ngOnDestroy(): void {
     this.itemsInCartSub.unsubscribe()
     this.currentSumSub.unsubscribe()
+    this.resetUserInputSub.unsubscribe()
   }
 
 }
