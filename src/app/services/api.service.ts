@@ -3,6 +3,10 @@ import { Product } from '../classes/product';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Order } from '../classes/order';
+import { CartItem } from '../classes/cartItem';
+import { OrderItem } from '../classes/orderItem';
+
 
 
 @Injectable({
@@ -12,17 +16,20 @@ export class ApiService implements OnDestroy {
 
   private baseUrl: string = "https://1z3pci4hcf.execute-api.us-east-1.amazonaws.com/dev/"
   private productsUrl: string = "api/products/"
+  private orderUrl: string = "api/orders"
 
   private productData: BehaviorSubject<Product[]> = new BehaviorSubject(null)
   private allProducts: Product[] = []
 
   private requestedProduct: BehaviorSubject<Product> = new BehaviorSubject(null)
   private requestedProducts: BehaviorSubject<Product[]> = new BehaviorSubject(null)
+  private createdOrders: BehaviorSubject<any> = new BehaviorSubject(null)
 
   private $ready: BehaviorSubject<boolean> = new BehaviorSubject(false)
 
   private readySubProduct: Subscription = Subscription.EMPTY
   private readySubProducts: Subscription = Subscription.EMPTY
+
 
   constructor(private http: HttpClient, private toastr: ToastrService) {
     this.getProductData()
@@ -83,6 +90,43 @@ export class ApiService implements OnDestroy {
 
   public getRequestedProducts(): Observable<Product[]> {
     return this.requestedProducts.asObservable()
+  }
+
+  public createOrder(sum: number, currency: string, email: string, items: CartItem[], cardNumber: string): void {
+    let adjustedItems: any[] = []
+
+    for (let cartItem of items) {
+      let adjustedItem: OrderItem = {
+        amount: cartItem.product.amount * cartItem.quantity,
+        currency: cartItem.product.currency,
+        description: cartItem.product.name,
+        quantity: cartItem.quantity
+      }
+
+      adjustedItems.push(adjustedItem)
+    }
+
+    let order: Order = {
+      amount: sum,
+      currency: currency,
+      email: email,
+      items: adjustedItems,
+      status: 'new',
+      card: {
+        id: '',
+        number: cardNumber
+      }
+    }
+
+    this.http.post(this.orderUrl, order).subscribe((createdOrder: any) => {
+      console.log(createdOrder)
+
+      this.createdOrders.next(createdOrder)
+    })
+  }
+
+  public getCreatedOrders(): Observable<any> {
+    return this.createdOrders.asObservable()
   }
 
   ngOnDestroy() {
