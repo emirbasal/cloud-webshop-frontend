@@ -29,7 +29,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     })
 
     this.currentProductSub = this.apiService.getRequestedProduct().subscribe((product: Product) => {
-      this.currentProduct = product
+      if (product != null) {
+        this.currentProduct = product
+      }
     })
   }
 

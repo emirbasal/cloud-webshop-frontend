@@ -1,11 +1,13 @@
 import { Product } from './product'
+import { Card } from './card'
 
 export class Order {
     id: string
     amount: number
-    items: Product[]
     currency: string
     email: string
-    status: any
-    cardNumber: number
+    items: any[]
+    status: string
+    card: Card
+    invoice: string
 }
