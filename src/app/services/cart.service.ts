@@ -64,7 +64,7 @@ export class CartService implements OnDestroy {
   }
 
   private setupLocalStorage(): void {
-    this.requestedProductsSub = this.apiService.getRequestedProducts().subscribe((products: Product[]) => {
+    this.requestedProductsSub = this.apiService.getRequestedProductsForCart().subscribe((products: Product[]) => {
       if (products != null) {
         for (let product of products) {
           this.productsInCart.push({
@@ -84,7 +84,7 @@ export class CartService implements OnDestroy {
           // Get stored ids in localstorage and request products by ids
           this.parsedCart = JSON.parse(localStorage.getItem("userCart"))
 
-          this.apiService.requestMultipleProducts(Object.keys(this.parsedCart))
+          this.apiService.requestMultipleProductsForCart(Object.keys(this.parsedCart))
 
           this.calcSum()
         }
@@ -197,7 +197,9 @@ export class CartService implements OnDestroy {
         amount: cartItem.product.amount * cartItem.quantity,
         currency: cartItem.product.currency,
         description: cartItem.product.name,
-        quantity: cartItem.quantity
+        quantity: cartItem.quantity,
+        id: cartItem.product.id,
+        image: null
       }
       adjustedItems.push(adjustedItem)
     }

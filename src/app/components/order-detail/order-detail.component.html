@@ -3,13 +3,14 @@
     <table class="item-table">
         <tbody>
           <tr *ngFor="let item of currentOrder?.items">
+            <td class="item-image-wrapper box-shadow border-radius">
+              <img class="item-image" [src]="base64Base + item?.image" [routerLink]="['/product/' + item?.id]">
+              <span class="item-quantity">{{item?.quantity}}</span>
+            </td>
             <td class="item-info">
                 <span>
                     {{item?.description}}
                 </span>
-            </td>
-            <td>
-                {{item?.quantity}}
             </td>
             <td>
                 {{item?.amount / 100 | number : '1.2-2'}} {{item?.currency}}
@@ -20,12 +21,11 @@
             <td class="order-sum-cell"></td>
             <td class="order-sum-cell">Summe</td>
             <td class="order-sum-cell">{{currentOrder?.amount/ 100 | number : '1.2-2'}} {{currentOrder?.currency}}</td>
-            <td></td>
           </tr>
         </tbody>
       </table>
 
-    <a *ngIf="currentOrder?.status === 'accepted'" [href]="currentOrder?.invoice">
+    <a *ngIf="currentOrder?.status === 'accepted' && currentOrder?.invoice != null && currentOrder?.invoice != ''" [href]="currentOrder?.invoice">
       Rechnung herunterladen
     </a>
   </div>

@@ -24,8 +24,10 @@ export class ApiService implements OnDestroy {
 
   // BehaviorSubjects to next requested product/s to subscribers
   private requestedProduct: BehaviorSubject<Product> = new BehaviorSubject(null)
-  private requestedProducts: BehaviorSubject<Product[]> = new BehaviorSubject(null)
   private requestedOrder: BehaviorSubject<Order> = new BehaviorSubject(null)
+
+  private cartReqProducts: BehaviorSubject<any> = new BehaviorSubject(null)
+  private orderReqProducts: Subject<any> = new Subject()
 
   // BehaviorSubject to next orderIds to subscribers
   private createdOrders: BehaviorSubject<any> = new BehaviorSubject(null)
@@ -79,8 +81,7 @@ export class ApiService implements OnDestroy {
     })
   }
 
-  // Nexts specified products by ids if all products were already requested
-  public requestMultipleProducts(ids: any): void {
+  private requestMultipleProducts(ids: any, behaviorSubject: any): void {
     this.readySubProducts = this.$ready.subscribe((isReady: boolean) => {
       if (isReady) {
         const requestedProducts = []
@@ -90,19 +91,32 @@ export class ApiService implements OnDestroy {
           })
           requestedProducts.push(this.allProducts[productIndex])
         }
+        behaviorSubject.next(requestedProducts)
 
-        this.requestedProducts.next(requestedProducts)
         this.readySubProducts.unsubscribe()
       }
     })
   }
 
+  public requestMultipleProductsForCart(ids: any): void {
+    this.requestMultipleProducts(ids, this.cartReqProducts)
+  }
+
+  public requestMultipleProductsForOrder(ids: any): void {
+    this.requestMultipleProducts(ids, this.orderReqProducts)
+  }
+
+
   public getRequestedProduct(): Observable<Product> {
     return this.requestedProduct.asObservable()
   }
 
-  public getRequestedProducts(): Observable<Product[]> {
-    return this.requestedProducts.asObservable()
+  public getRequestedProductsForCart(): Observable<Product[]> {
+    return this.cartReqProducts.asObservable()
+  }
+
+  public getRequestedProductsForOrder(): Observable<Product[]> {
+    return this.orderReqProducts.asObservable()
   }
 
   // Creates an order in the backend and after a set time requests the corresponding invoice
@@ -126,7 +140,7 @@ export class ApiService implements OnDestroy {
     return this.createdOrders.asObservable()
   }
 
-  public requestInvoice(orderId: string): void {
+  public requestOrder(orderId: string): void {
     this.http.get(this.baseUrl + this.invoiceUrl + orderId).subscribe((order: any) => {
       switch (order.status) {
         case 'pending':
