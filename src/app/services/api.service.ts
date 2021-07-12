@@ -129,15 +129,10 @@ export class ApiService implements OnDestroy {
       setTimeout(() => {
           this.router.navigate(['order/' + createdOrder.id])
         }, 1500)
-
       }, error => {
         console.log(error)
         this.toastr.error('wurde nicht aufgegeben', 'Bestellung')
       })
-  }
-
-  public getCreatedOrders(): Observable<any> {
-    return this.createdOrders.asObservable()
   }
 
   public requestOrder(orderId: string): void {
@@ -159,6 +154,10 @@ export class ApiService implements OnDestroy {
 
       this.orderDeclined.next()
     })
+  }
+
+  public getCreatedOrders(): Observable<any> {
+    return this.createdOrders.asObservable()
   }
 
   public getOrderDeclined(): Observable<any> {

@@ -43,6 +43,7 @@
 
 .item-image {
   height: 120px;
+  cursor: pointer;
 }
 
 .item-quantity {
