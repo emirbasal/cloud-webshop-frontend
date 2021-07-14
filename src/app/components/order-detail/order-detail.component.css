@@ -25,6 +25,7 @@
 
 .item-table {
   margin-bottom: 2px;
+  cursor: pointer;
 }
 
 .item-image-wrapper {
