@@ -19,8 +19,8 @@ stages:
 #     - angular
 
 
-# variables:
-#   CLI_VERSION: 12.1.2
+variables:
+  CLI_VERSION: 12.1.2
 
 # test:nglint:
 #   stage: test
