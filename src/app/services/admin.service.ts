@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../classes/product';
 import { ApiService } from './api.service';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class AdminService {
   private allOrdersUrl: string = "api/orders"
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private cartService: CartService
   ) {
   }
 
@@ -33,8 +35,9 @@ export class AdminService {
       this.apiService.toastr.success(`${productId} wurde gelöscht`, "Produkt")
 
       setTimeout(() => {
+        this.cartService.removeFromCart(productId)
         window.location.reload()
-      }, 1500)
+      }, 2000)
     }, error => {
       this.apiService.toastr.error(`${productId} wurde nicht gelöscht`, "Produkt")
     })
