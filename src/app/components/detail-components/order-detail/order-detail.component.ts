@@ -51,22 +51,26 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
     this.requestedProductsSub = this.apiService.getRequestedProductsForOrder().subscribe((products: Product[]) => {
       if (products != null) {
         for (let orderItem of this.currentOrder.items) {
-          let produdctIndex = products.findIndex((product: Product) => {
-            return product.id === orderItem.id
+          let productIndex = products.findIndex((product: Product) => {
+            return product?.id === orderItem?.id
           });
 
-          orderItem.image = products[produdctIndex].image
-          this.isLoading = false
+          if (productIndex >= 0) {
+            orderItem.image = products[productIndex].image
+          }
         }
-
+        this.isLoading = false
       }
     })
 
     setTimeout(() => {
       if (this.currentOrder === undefined) {
         this.apiService.requestOrder(this.orderId)
+      } else {
+        this.isLoading = false
       }
     }, 1500)
+
   }
 
   ngOnDestroy() {

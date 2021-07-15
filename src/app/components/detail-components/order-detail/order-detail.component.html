@@ -1,19 +1,25 @@
 <div class="order-outer-wrapper">
   <div class="order-wrapper border-radius box-shadow">
-    <table class="item-table">
+    <table class="product-table">
         <tbody>
-          <tr *ngFor="let item of currentOrder?.items">
-            <td class="item-image-wrapper box-shadow border-radius">
-              <img class="item-image" [src]="base64Base + item?.image" [routerLink]="['/product/' + item?.id]">
-              <span class="item-quantity">{{item?.quantity}}</span>
+          <tr *ngFor="let product of currentOrder?.items">
+            <td *ngIf="product?.image != null" class="product-image-wrapper box-shadow border-radius">
+              <img class="product-image" [src]="base64Base + product?.image" [routerLink]="['/product/' + product?.id]">
+              <span class="product-quantity">{{product?.quantity}}</span>
             </td>
-            <td class="item-info">
+            <td *ngIf="product?.image === null" class="product-image-wrapper box-shadow border-radius">
+              <span class="no-image-text">
+                Kein Bild vorhanden
+              </span>
+            </td>
+
+            <td class="product-info">
                 <span>
-                    {{item?.description}}
+                    {{product?.description}}
                 </span>
             </td>
             <td>
-                {{item?.amount / 100 | number : '1.2-2'}} {{item?.currency}}
+                {{product?.amount / 100 | number : '1.2-2'}} {{product?.currency}}
             </td>
           </tr>
 

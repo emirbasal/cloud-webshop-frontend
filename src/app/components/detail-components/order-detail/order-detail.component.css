@@ -24,12 +24,12 @@
   font-weight: bold
 }
 
-.item-table {
+.product-table {
   margin-bottom: 2px;
   cursor: pointer;
 }
 
-.item-image-wrapper {
+.product-image-wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -43,12 +43,12 @@
   margin-bottom: 6px;
 }
 
-.item-image {
+.product-image {
   height: 120px;
   cursor: pointer;
 }
 
-.item-quantity {
+.product-quantity {
   position: absolute;
   display: flex;
   top: 3px;
@@ -60,6 +60,10 @@
   background-color: #495057a8;
   align-items: center;
   justify-content: center;
+}
+
+.no-image-text {
+  color: black;
 }
 
 
