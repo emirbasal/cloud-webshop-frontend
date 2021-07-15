@@ -41,7 +41,7 @@ export class ApiService implements OnDestroy {
   private readySubProduct: Subscription = Subscription.EMPTY
   private readySubProducts: Subscription = Subscription.EMPTY
 
-  private specificIsLoading: Subject<boolean> = new Subject
+  private specificIsLoading: Subject<boolean> = new Subject()
 
 
   constructor(private http: HttpClient, private toastr: ToastrService, private router: Router) {
