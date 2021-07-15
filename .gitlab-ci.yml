@@ -1,101 +1,47 @@
-image: node:12
+image: node:14
 
 stages:
   - build
   - test
+  - deploy
 
-build:
-  image: trion/ng-cli
-  before_script:
-    - npm ci
-  script:
-    - ng build
-  artifacts:
-    paths:
-      - dist/
-  tags:
-    - frontend
-    - angular
+# build:
+#   image: trion/ng-cli
+#   before_script:
+#     - npm ci
+#   script:
+#     - ng build
+#   artifacts:
+#     paths:
+#       - dist/
+#   tags:
+#     - frontend
+#     - angular
 
 
-variables:
-  CLI_VERSION: 11.1.4
+# variables:
+#   CLI_VERSION: 12.1.2
 
-# test:karma:
+# test:nglint:
 #   stage: test
-#   image: trion/ng-cli-karma:${CLI_VERSION}
+#   image: trion/ng-cli:${CLI_VERSION}
 #   allow_failure: true
 #   before_script:
 #     - npm ci
 #   script:
-#     - ng test --progress false --watch false
+#     - ng lint
 #   tags:
 #     - frontend
 #     - angular
 
-
-# test:e2e:
-#   stage: test
-#   image: trion/ng-cli-e2e:${CLI_VERSION}
-#   allow_failure: false
-#   before_script:
-#     - npm ci
-#   script:
-#     - ng e2e
-#   tags:
-#     - frontend
-#     - angular
-
-
-test:nglint:
-  stage: test
-  image: trion/ng-cli:${CLI_VERSION}
-  allow_failure: true
+deploy:
+  stage: deploy
+  # only:
+  #   - master
   before_script:
-    - npm ci
+    - npm install
+    # - npm install
+    # - npm install serverless-single-page-app-plugin
+    # - npm install serverless-s3-sync
   script:
-    - ng lint
-  tags:
-    - frontend
-    - angular
-
-
-# lint:sonar:
-#   stage: test
-#   image: trion/ng-cli:${CLI_VERSION}
-#   script:
-#   - npm install -g sonarqube-scanner
-#   - >
-#     sonar-scanner
-#     -Dsonar.projectKey=demo
-#     -Dsonar.organization=everflux-github
-#     -Dsonar.host.url=https://sonarcloud.io
-#     -Dsonar.login=covfefe
-#     -Dsonar.typescript.lcov.reportPaths=coverage/lcov/lcov.info
-#     -Dsonar.sourceEncoding=UTF-8
-#     -Dsonar.sources=src/app
-#     -Dsonar.exclusions=**/node_modules/**,**/*.spec.ts
-#     -Dsonar.tests=src/app
-#     -Dsonar.test.inclusions=**/*.spec.ts
-
-# deploy:
-#   stage: 'deploy'
-#   environment:
-#     name: production
-#   script:
-#     - apt update
-#     - apt install -y software-properties-common
-#     - apt install -y python-dev
-#     - apt install -y python-pip
-#     - pip install awscli
-#     - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-#     - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-#     - aws configure set region us-east-1
-#     - ls -la -F
-#     - mv dist/angular-gitlab-ci-cd-example/appspec.yml dist/
-#     - cd dist
-#     - ls -al -F
-#     - cd ..
-#     - aws deploy push --application-name angular-gitlab-ci-cd-example --s3-location $AWS_S3_LOCATION --ignore-hidden-files --source dist
-#   only:
-#     - master
+    - serverless s3sync
