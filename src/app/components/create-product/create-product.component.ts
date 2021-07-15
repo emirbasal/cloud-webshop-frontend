@@ -76,8 +76,8 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   }
 
   public setImage(image: any) {
-    let base64_image = image.split("base64,")
-    this.image = base64_image[1]
+    let base64Image = image.split("base64,")
+    this.image = base64Image[1]
   }
 
   public onFileChanged(event: any) {
