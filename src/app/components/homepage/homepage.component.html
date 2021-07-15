@@ -1,5 +1,6 @@
 <div class="homepage-wrapper">
   <div class="products-wrapper border-radius box-shadow">
     <product-list (addProductToCart)="addToCart($event)" [products]="products"></product-list>
-    </div>
+    <ngx-loading [show]="isLoading"></ngx-loading>
+  </div>
 </div>

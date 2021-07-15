@@ -14,15 +14,19 @@ export class HomepageComponent implements OnInit, OnDestroy {
   public products: Product[] = []
   private productsSub: Subscription = Subscription.EMPTY
 
+  public isLoading: boolean = false
+
   constructor(
     private apiService: ApiService,
     private cartService: CartService
   ) { }
 
   ngOnInit(): void {
+    this.isLoading = true
     this.productsSub = this.apiService.getAllProducts().subscribe((products: Product[]) => {
       if (products != null) {
         this.products = products
+        this.isLoading = false
       }
     })
   }

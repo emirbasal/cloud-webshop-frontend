@@ -1,6 +1,6 @@
-import { Component, ElementRef, Input, OnInit, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { Product } from 'src/app/classes/product'
 import { ApiService } from 'src/app/services/api.service';
 import { ToastrService } from 'ngx-toastr';
@@ -11,9 +11,12 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './create-product.component.html',
   styleUrls: ['./create-product.component.css']
 })
-export class CreateProductComponent implements OnInit {
+export class CreateProductComponent implements OnInit, OnDestroy {
 
   @Output() createProduct = new EventEmitter()
+
+  private isLoadingSub: Subscription = Subscription.EMPTY
+  public isLoading: boolean = false
 
   public informationForm: FormGroup;
   public submitted = false
@@ -32,7 +35,10 @@ export class CreateProductComponent implements OnInit {
       amount: ["", [Validators.required, Validators.pattern(/^\d+\.\d{2}$/)]],
       description: ["", [Validators.required]],
       image: ["", [Validators.required]]
-    });
+    })
+    this.isLoadingSub = this.apiService.getIsLoading().subscribe((isLoading: boolean) => {
+      this.isLoading = isLoading
+    })
   }
 
   get getFormGroup(): FormGroup["controls"] {
@@ -54,6 +60,7 @@ export class CreateProductComponent implements OnInit {
         createdAt: null,
         updatedAt: null
       }
+      this.isLoading = true
       this.apiService.createProduct(product)
 
       this.onReset()
@@ -99,4 +106,9 @@ export class CreateProductComponent implements OnInit {
       reader.onerror = error => reject(error);
     });
   }
+
+  ngOnDestroy() {
+    this.isLoadingSub.unsubscribe()
+  }
+
 }

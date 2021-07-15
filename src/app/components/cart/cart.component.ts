@@ -23,11 +23,17 @@ export class CartComponent implements OnInit, OnDestroy {
 
   private resetUserInputSub: Subscription = Subscription.EMPTY
 
+  public isLoading: boolean = false
+
   constructor(private cartService: CartService) { }
 
   ngOnInit(): void {
+    this.isLoading = true
     this.itemsInCartSub = this.cartService.getCurrentCart().subscribe((items: CartItem[]) => {
-      this.itemsInCart = items
+      if (items != null) {
+        this.isLoading = false
+        this.itemsInCart = items
+      }
     })
 
     this.currentSumSub = this.cartService.getCurrentSum().subscribe((sum: number) => {
@@ -50,6 +56,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   public createOrder(cardNumber: string, email: string): void {
     this.cartService.createOrder(this.currentSumCart, this.shopCurrency, email, this.itemsInCart, cardNumber)
+    this.isLoading = true
   }
 
   ngOnDestroy(): void {

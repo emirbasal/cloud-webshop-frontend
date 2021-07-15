@@ -20,6 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 import { CreateProductComponent } from './components/create-product/create-product.component';
+import { NgxLoadingModule } from 'ngx-loading';
+
 
 @NgModule({
   declarations: [
@@ -45,6 +47,8 @@ import { CreateProductComponent } from './components/create-product/create-produ
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({timeOut: 3000}),
+    NgxLoadingModule.forRoot({ backdropBorderRadius: '3px' }),
+
   ],
   providers: [],
   bootstrap: [AppComponent]

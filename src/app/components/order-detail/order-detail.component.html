@@ -28,5 +28,6 @@
     <a *ngIf="currentOrder?.status === 'accepted' && currentOrder?.invoice != null && currentOrder?.invoice != ''" [href]="currentOrder?.invoice">
       Rechnung herunterladen
     </a>
+    <ngx-loading [show]="isLoading"></ngx-loading>
   </div>
 </div>

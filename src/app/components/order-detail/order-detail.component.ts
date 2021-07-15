@@ -24,6 +24,8 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
 
   private requestedProductsSub: Subscription = Subscription.EMPTY
 
+  public isLoading: boolean = false
+
   constructor(
     private apiService: ApiService,
     private route: ActivatedRoute
@@ -32,6 +34,7 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.orderIdSub = this.route.paramMap.subscribe((params: ParamMap) => {
       this.orderId = params.get('id');
+      this.isLoading = true
     });
 
     this.currentOrderSub = this.apiService.getRequestedOrder().subscribe((order: Order) => {
@@ -53,6 +56,7 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
           });
 
           orderItem.image = products[produdctIndex].image
+          this.isLoading = false
         }
 
       }

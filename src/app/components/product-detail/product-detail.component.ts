@@ -19,9 +19,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   public base64Base: string = "data:image/png;base64,"
 
+  public isLoading: boolean = false
+
   constructor(private apiService: ApiService, private cartService: CartService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.isLoading = true
     this.productIdSub = this.route.paramMap.subscribe((params: ParamMap) => {
       this.productId = params.get('id');
 
@@ -31,6 +34,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.currentProductSub = this.apiService.getRequestedProduct().subscribe((product: Product) => {
       if (product != null) {
         this.currentProduct = product
+        this.isLoading = false
       }
     })
   }

@@ -2,5 +2,6 @@
   <div class="overview-wrapper border-radius box-shadow">
     <cart-item-list (changeItemQuantity)="changeQuantity($event.id, $event.amount)" (removeItemFromCart)="removeFromCart($event)" [items]="itemsInCart" [totalSum]="currentSumCart"></cart-item-list>
     <cart-user-information #cartUserInformation (createOrder)="createOrder($event.cardNumber, $event.email)" [cartSum]="currentSumCart"></cart-user-information>
+    <ngx-loading [show]="isLoading"></ngx-loading>
   </div>
 </div>

@@ -11,9 +11,9 @@
   min-width: 968px;
   background-color: var(--c7);
   margin: 8px;
-
   display: flex;
   flex-direction: row;
+  position: relative;
 }
 
 .product-image-wrapper {

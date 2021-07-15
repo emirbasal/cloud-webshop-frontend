@@ -17,7 +17,7 @@ export class CartService implements OnDestroy {
   private parsedCart: { [id: string]: CartItem } = {}
 
   private cartItemCounter: BehaviorSubject<number> = new BehaviorSubject(0)
-  private cartItems: BehaviorSubject<CartItem[]> = new BehaviorSubject([])
+  private cartItems: BehaviorSubject<CartItem[]> = new BehaviorSubject(null)
   private cartSum: BehaviorSubject<number> = new BehaviorSubject(0)
 
   private resetUserInput: Subject<any> = new Subject()
