@@ -189,26 +189,20 @@ export class CartService implements OnDestroy {
     }
   }
 
-  public createOrder(sum: number, currency: string, email: string, items: CartItem[], cardNumber: string): void {
+  public createOrder(email: string, items: CartItem[], cardNumber: string): void {
     let adjustedItems: any[] = []
 
     for (let cartItem of items) {
-      let adjustedItem: OrderItem = {
-        amount: cartItem.product.amount * cartItem.quantity,
-        currency: cartItem.product.currency,
-        description: cartItem.product.name,
+      let adjustedItem: any = {
         quantity: cartItem.quantity,
         id: cartItem.product.id,
-        image: null
       }
       adjustedItems.push(adjustedItem)
     }
 
-    let order: Order = {
+    let order: any = {
       id: '',
       invoice: '',
-      amount: sum,
-      currency,
       email,
       items: adjustedItems,
       status: 'new',

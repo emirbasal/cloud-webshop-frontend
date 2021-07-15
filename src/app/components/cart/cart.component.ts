@@ -55,7 +55,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   public createOrder(cardNumber: string, email: string): void {
-    this.cartService.createOrder(this.currentSumCart, this.shopCurrency, email, this.itemsInCart, cardNumber)
+    this.cartService.createOrder(email, this.itemsInCart, cardNumber)
     this.isLoading = true
   }
 
