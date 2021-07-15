@@ -38,6 +38,7 @@ export class AdminOverviewComponent implements OnInit, OnDestroy {
       if (products != null) {
         this.products = products
         this.productsLoaded = true
+        this.checkIfLoaded()
       }
     })
 
