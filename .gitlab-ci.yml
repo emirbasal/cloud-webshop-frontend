@@ -45,3 +45,6 @@ deploy:
     # - npm install serverless-s3-sync
   script:
     - serverless s3sync
+  tags:
+    - frontend
+    - angular
