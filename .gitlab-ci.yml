@@ -40,9 +40,9 @@ deploy:
   #   - master
   before_script:
     - npm install
-    # - npm install
-    # - npm install serverless-single-page-app-plugin
-    # - npm install serverless-s3-sync
+    - npm install serverless
+    - npm install serverless-single-page-app-plugin
+    - npm install serverless-s3-sync
   script:
     - serverless s3sync
   tags:
