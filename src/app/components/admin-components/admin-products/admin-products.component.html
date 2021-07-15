@@ -1,0 +1,6 @@
+<table class="products-table">
+  <tbody>
+    <tr admin-products-entry *ngFor="let product of products" [product]="product" (deleteProduct)="onDeleteProduct($event)">
+    </tr>
+  </tbody>
+</table>

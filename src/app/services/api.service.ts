@@ -13,9 +13,9 @@ import { Router } from '@angular/router';
 export class ApiService implements OnDestroy {
 
   // API urls and extensions
-  private baseUrl: string = "https://e2s1lbvuee.execute-api.us-east-1.amazonaws.com/prod/"
-  private productsUrl: string = "api/products/"
-  private ordersUrl: string = "api/orders/"
+  public baseUrl: string = "https://e2s1lbvuee.execute-api.us-east-1.amazonaws.com/prod/"
+  public productsUrl: string = "api/products/"
+  public ordersUrl: string = "api/orders/"
 
   // BehaviorSubject to next all products to subscribers
   private productData: BehaviorSubject<Product[]> = new BehaviorSubject(null)
@@ -44,7 +44,7 @@ export class ApiService implements OnDestroy {
   private specificIsLoading: Subject<boolean> = new Subject()
 
 
-  constructor(private http: HttpClient, private toastr: ToastrService, private router: Router) {
+  constructor(public http: HttpClient, public toastr: ToastrService, private router: Router) {
     this.getProductData()
   }
 
