@@ -36,7 +36,7 @@ variables:
 
 deploy:
   stage: deploy
-  image: trion/ng-cli:${CLI_VERSION}
+  image: node:14
   # only:
   #   - master
   before_script:
