@@ -7,12 +7,10 @@
               <img class="product-image" [src]="base64Base + product?.image" [routerLink]="['/product/' + product?.id]">
               <span class="product-quantity">{{product?.quantity}}</span>
             </td>
-            <td *ngIf="product?.image === null" class="product-image-wrapper box-shadow border-radius">
-              <span class="no-image-text">
-                Kein Bild vorhanden
-              </span>
+            <td *ngIf="product?.image == null" class="product-image-wrapper box-shadow border-radius">
+              <img class="fallback-image" src="assets/fallback_image.png">
+              <span class="product-quantity">{{product?.quantity}}</span>
             </td>
-
             <td class="product-info">
                 <span>
                     {{product?.description}}

@@ -26,7 +26,6 @@
 
 .product-table {
   margin-bottom: 2px;
-  cursor: pointer;
 }
 
 .product-image-wrapper {
@@ -35,17 +34,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   padding-left: 1.5rem;
-
   background-color: var(--img-bg);
-
   margin-bottom: 6px;
 }
 
 .product-image {
   height: 120px;
   cursor: pointer;
+}
+
+.fallback-image {
+  height: 120px;
 }
 
 .product-quantity {
