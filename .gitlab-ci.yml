@@ -36,6 +36,7 @@ stages:
 
 deploy:
   stage: deploy
+  image: trion/ng-cli:${CLI_VERSION}
   # only:
   #   - master
   before_script:
