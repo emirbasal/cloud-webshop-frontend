@@ -47,7 +47,7 @@ deploy:
     - ng build
   script:
     - serverless s3sync
-  before_script:
+  after_script:
     - serverless domainInfo
   tags:
     - frontend
