@@ -1,0 +1,41 @@
+<div class="create-product-wrapper">
+  <div class="overview-wrapper border-radius box-shadow">
+    <form class="user-information-form" [formGroup]="informationForm" autocomplete="off">
+      <fieldset>
+        <label for="name">Name</label>
+        <input id="name" type="text" formControlName="name" placeholder="Name" maxlength="50"/>
+
+        <label for="amount">Preis
+          <div class="tooltip">
+            <i class="icon" icon iconName="info-circle"></i>
+            <div class="right">
+              <div class="text-content">
+                <h6>Bitte Zahl kommagetrennt und mit zwei Nachkommastellen angeben!</h6>
+              </div>
+            </div>
+          </div>
+        </label>
+        <input id="amount" type="number" formControlName="amount" placeholder="Preis" min="0" value="0" step=".01"/>
+
+        <label for="description">Beschreibung</label>
+        <textarea id="description" formControlName="description" placeholder="Beschreibung" maxlength="450"></textarea>
+
+        <label for="image">Bild
+          <div class="tooltip">
+            <i class="icon" icon iconName="info-circle"></i>
+            <div class="right">
+              <div class="text-content">
+                <h6>Bild darf nicht größer als 300KB sein!</h6>
+              </div>
+            </div>
+          </div>
+        </label>
+        <input type="file" formControlName="image" id="image" accept="image/png, image/jpeg" (change)="onFileChanged($event)">
+
+        <label for="button"></label>
+        <input id="button" type="button" class="button" (click)="onSubmit()" value="Produkt anlegen">
+      </fieldset>
+
+    </form>
+  </div>
+</div>

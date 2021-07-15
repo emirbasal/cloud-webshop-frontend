@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
+import { CreateProductComponent } from './components/create-product/create-product.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
     CartItemListEntryComponent,
     CartUserInformationComponent,
     IconComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    CreateProductComponent
   ],
   imports: [
     BrowserModule,

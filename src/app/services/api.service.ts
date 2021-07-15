@@ -13,10 +13,9 @@ import { Router } from '@angular/router';
 export class ApiService implements OnDestroy {
 
   // API urls and extensions
-  private baseUrl: string = "https://1z3pci4hcf.execute-api.us-east-1.amazonaws.com/dev/"
+  private baseUrl: string = "https://e2s1lbvuee.execute-api.us-east-1.amazonaws.com/prod/"
   private productsUrl: string = "api/products/"
-  private ordersUrl: string = "api/orders"
-  private invoiceUrl: string = "/api/orders/invoice/"
+  private ordersUrl: string = "api/orders/"
 
   // BehaviorSubject to next all products to subscribers
   private productData: BehaviorSubject<Product[]> = new BehaviorSubject(null)
@@ -136,7 +135,7 @@ export class ApiService implements OnDestroy {
   }
 
   public requestOrder(orderId: string): void {
-    this.http.get(this.baseUrl + this.invoiceUrl + orderId).subscribe((order: any) => {
+    this.http.get(this.baseUrl + this.ordersUrl + orderId).subscribe((order: any) => {
       switch (order.status) {
         case 'pending':
           this.toastr.success('ist in Bearbeitung', 'Bestellung')
@@ -167,6 +166,22 @@ export class ApiService implements OnDestroy {
   public getRequestedOrder(): Observable<any> {
     return this.requestedOrder.asObservable()
   }
+
+  public createProduct(product: Product): void {
+    this.http.post(this.baseUrl + this.productsUrl, product).subscribe((createdProduct: any) => {
+      this.toastr.success('wurde angelegt', createdProduct.name)
+
+      this.router.navigate(['product/' + createdProduct.id])
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500)
+    }, error => {
+      console.log(error)
+      this.toastr.error('konnte nicht angelegt werden', 'Produkt')
+    })
+  }
+
 
   ngOnDestroy() {
     this.readySubProduct.unsubscribe()
