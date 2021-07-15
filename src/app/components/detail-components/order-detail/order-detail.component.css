@@ -24,31 +24,31 @@
   font-weight: bold
 }
 
-.item-table {
+.product-table {
   margin-bottom: 2px;
-  cursor: pointer;
 }
 
-.item-image-wrapper {
+.product-image-wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   padding-left: 1.5rem;
-
   background-color: var(--img-bg);
-
   margin-bottom: 6px;
 }
 
-.item-image {
+.product-image {
   height: 120px;
   cursor: pointer;
 }
 
-.item-quantity {
+.fallback-image {
+  height: 120px;
+}
+
+.product-quantity {
   position: absolute;
   display: flex;
   top: 3px;
@@ -60,6 +60,10 @@
   background-color: #495057a8;
   align-items: center;
   justify-content: center;
+}
+
+.no-image-text {
+  color: black;
 }
 
 

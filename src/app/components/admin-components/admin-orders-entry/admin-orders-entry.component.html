@@ -1,0 +1,16 @@
+<td class="order-id" [routerLink]="['/order/' + order?.id]">
+  {{order?.id}}
+</td>
+<td>
+  {{order?.amount / 100 | number : '1.2-2'}} {{order.currency}}
+</td>
+
+<td>
+  {{order?.status}}
+</td>
+
+<td>
+  <a *ngIf="order?.status === 'accepted' && order?.invoice != null && order?.invoice != ''" [href]="order?.invoice">
+      Rechnung
+  </a>
+</td>

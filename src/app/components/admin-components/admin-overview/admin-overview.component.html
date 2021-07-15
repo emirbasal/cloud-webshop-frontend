@@ -1,0 +1,17 @@
+<div class="admin-wrapper">
+  <div class="admin-overview-wrapper border-radius box-shadow">
+      <admin-outcome [outcome]="outcome" [currency]="currency"></admin-outcome>
+
+      <div class="products">
+          <h3>Produkte</h3>
+          <admin-products (deleteProduct)="deleteProduct($event)" [products]="products"></admin-products>
+      </div>
+
+      <div class="orders">
+          <h3>Bestellungen</h3>
+          <admin-orders [orders]="orders"></admin-orders>
+      </div>
+
+      <ngx-loading [show]="isLoading"></ngx-loading>
+  </div>
+</div>

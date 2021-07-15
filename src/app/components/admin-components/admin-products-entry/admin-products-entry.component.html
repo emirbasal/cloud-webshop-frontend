@@ -1,0 +1,16 @@
+<td class="product-id" [routerLink]="['/product/' + product?.id]">
+  {{product?.id}}
+</td>
+<td class="product-info">
+  <span>
+      {{product?.name}}
+  </span>
+</td>
+<td>
+  {{product?.amount / 100 | number : '1.2-2'}} {{product.currency}}
+</td>
+<td>
+  <button class="button-small" (click)="onDeleteProduct()">
+      <div class="icon" icon iconName="trash-can-fill" iconAlt="Mülleimer Icon"></div>
+  </button>
+</td>

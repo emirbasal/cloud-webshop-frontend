@@ -21,6 +21,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { OrderDetailComponent } from './components/detail-components/order-detail/order-detail.component';
 import { CreateProductComponent } from './components/create-product/create-product.component';
 import { NgxLoadingModule } from 'ngx-loading';
+import { AdminOrdersEntryComponent } from './components/admin-components/admin-orders-entry/admin-orders-entry.component';
+import { AdminOrdersComponent } from './components/admin-components/admin-orders/admin-orders.component';
+import { AdminOutcomeComponent } from './components/admin-components/admin-outcome/admin-outcome.component';
+import { AdminOverviewComponent } from './components/admin-components/admin-overview/admin-overview.component';
+import { AdminProductsEntryComponent } from './components/admin-components/admin-products-entry/admin-products-entry.component';
+import { AdminProductsComponent } from './components/admin-components/admin-products/admin-products.component';
 
 
 @NgModule({
@@ -37,7 +43,13 @@ import { NgxLoadingModule } from 'ngx-loading';
     CartUserInformationComponent,
     IconComponent,
     OrderDetailComponent,
-    CreateProductComponent
+    CreateProductComponent,
+    AdminOrdersEntryComponent,
+    AdminOrdersComponent,
+    AdminOutcomeComponent,
+    AdminOverviewComponent,
+    AdminProductsEntryComponent,
+    AdminProductsComponent
   ],
   imports: [
     BrowserModule,
