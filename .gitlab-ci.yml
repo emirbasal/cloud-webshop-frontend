@@ -44,9 +44,13 @@ deploy:
     - npm install -g serverless
     - npm install serverless-single-page-app-plugin
     - npm install serverless-s3-sync
+    - ng build
+    - apt install python3-pip
+    - pip install awscli
   script:
     - serverless s3sync
   after_script:
+    - aws cloudfront create-invalidation --distribution-id E2JV8CIUEA5Y6P --paths "/*"
     - serverless domainInfo
   tags:
     - frontend
