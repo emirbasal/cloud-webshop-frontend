@@ -14,8 +14,8 @@ const routes: Routes = [
   { path: 'cart', component: CartComponent },
   { path: 'product/:id', component: ProductDetailComponent  },
   { path: 'order/:id', component: OrderDetailComponent },
-  { path: 'product/create/new', component: CreateProductComponent },
-  { path: 'admin/overview', component: AdminOverviewComponent, canActivate: [AuthGuardService]  },
+  { path: 'product/create/new', component: CreateProductComponent, canActivate: [AuthGuardService] },
+  { path: 'admin/overview', component: AdminOverviewComponent, canActivate: [AuthGuardService] },
   { path: 'test', component: AuthenticationComponent },
   { path: '**', redirectTo: '' }
 
