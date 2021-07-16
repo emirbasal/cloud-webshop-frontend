@@ -16,9 +16,8 @@ export class AuthService {
 
   public authenticate(account: Account) {
     // Password hashen
+
     this.apiService.sendAuthDataToApi(account, this.authUrl)
-    let valid = this.isTokenExpired(localStorage.getItem('token'))
-    console.log('Valid:' + valid)
   }
 
   public hashPassword(password: string):string {

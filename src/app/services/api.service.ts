@@ -211,12 +211,6 @@ export class ApiService implements OnDestroy {
       })
   }
 
-
-  // public verifyToken(token: string) {
-
-  // }
-
-
   ngOnDestroy() {
     this.readySubProduct.unsubscribe()
     this.readySubProducts.unsubscribe()
