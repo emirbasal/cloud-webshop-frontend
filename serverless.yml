@@ -1,4 +1,4 @@
-service: webshop
+service: webshop-frontend
 
 plugins:
   - serverless-single-page-app-plugin
