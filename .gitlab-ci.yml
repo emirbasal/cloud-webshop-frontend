@@ -1,11 +1,12 @@
 image: node:14
 
 stages:
-  - build
-  - test
-  - deploy
+  - Build
+  - Test
+  - Deploy
 
 build:
+  stage: Build
   image: trion/ng-cli
   before_script:
     - npm ci
@@ -19,7 +20,7 @@ build:
     - angular
 
 test:nglint:
-  stage: test
+  stage: Test
   image: trion/ng-cli
   allow_failure: true
   before_script:
@@ -31,7 +32,7 @@ test:nglint:
     - angular
 
 deploy:
-  stage: deploy
+  stage: Deploy
   image: trion/ng-cli
   only:
     - master
