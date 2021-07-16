@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Account } from '../classes/account';
 import { ApiService } from './api.service';
 import jwt_decode from 'jwt-decode';
+import bcrypt from 'bcryptjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,19 +15,19 @@ export class AuthService {
   }
 
   public authenticate(account: Account) {
-    // Password hashen
-
+    //Fürs erste auskommentiert, weil die Überprüfung im Backend noch implementiert werden muss
+    // account.password = this.hashPassword(account.password)
     this.apiService.sendAuthDataToApi(account, this.authUrl)
   }
 
   public hashPassword(password: string):string {
-    return
+    const salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(password, salt);
   }
 
   public isUserAuthenticated(): boolean {
     return !this.isTokenExpired(localStorage.getItem('token'))
   }
-
 
   public isTokenExpired(token: string) {
     let decodedToken = this.getDecodedToken(token)
