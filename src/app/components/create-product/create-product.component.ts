@@ -67,7 +67,6 @@ export class CreateProductComponent implements OnInit, OnDestroy {
     } else {
       console.log('informationForm: invalid');
     }
-
   }
 
   public onReset(): void {

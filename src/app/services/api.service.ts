@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Order } from '../classes/order';
 import { Router } from '@angular/router';
+import { Account } from '../classes/account';
 
 
 @Injectable({
@@ -190,6 +191,30 @@ export class ApiService implements OnDestroy {
     return this.specificIsLoading.asObservable()
   }
 
+  public sendAuthDataToApi(account: Account, endpoint: string): void {
+    this.http.post(this.baseUrl + endpoint, account).subscribe((response: any) => {
+      let token:string = response.token
+      if (token.length > 0) {
+        this.toastr.success('Erfolgreich authentifiziert')
+        localStorage.setItem("token", token)
+        this.router.navigate([''])
+      } else {
+        this.toastr.error('Username oder Passwort falsch')
+        return
+      }
+
+      setTimeout(() => {
+        }, 1500)
+      }, error => {
+        console.log(error)
+        this.toastr.error('Konnte nicht authentifizert werden')
+      })
+  }
+
+
+  // public verifyToken(token: string) {
+
+  // }
 
 
   ngOnDestroy() {

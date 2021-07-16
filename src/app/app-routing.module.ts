@@ -6,6 +6,8 @@ import { HomepageComponent } from './components/homepage-components/homepage/hom
 import { ProductDetailComponent } from './components/detail-components/product-detail/product-detail.component';
 import { OrderDetailComponent } from './components/detail-components/order-detail/order-detail.component';
 import { AdminOverviewComponent } from './components/admin-components/admin-overview/admin-overview.component';
+import { AuthenticationComponent } from './components/authentication/authentication/authentication.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent },
@@ -13,7 +15,10 @@ const routes: Routes = [
   { path: 'product/:id', component: ProductDetailComponent  },
   { path: 'order/:id', component: OrderDetailComponent },
   { path: 'product/create/new', component: CreateProductComponent },
-  { path: 'admin/overview', component: AdminOverviewComponent },
+  { path: 'admin/overview', component: AdminOverviewComponent, canActivate: [AuthGuardService]  },
+  { path: 'test', component: AuthenticationComponent },
+  { path: '**', redirectTo: '' }
+
 ];
 
 @NgModule({
