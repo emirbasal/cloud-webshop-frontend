@@ -44,7 +44,6 @@ deploy:
     - npm install -g serverless
     - npm install serverless-single-page-app-plugin
     - npm install serverless-s3-sync
-    - ng build
   script:
     - serverless s3sync
   after_script:
