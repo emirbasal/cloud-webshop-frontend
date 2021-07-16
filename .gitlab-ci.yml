@@ -51,7 +51,7 @@ deploy:
     - angular
 
 clear_CloudFront_cache:
-  stage: deploy
+  stage: Deploy
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   script:
     - aws cloudfront create-invalidation --distribution-id E2JV8CIUEA5Y6P --paths "/*"
