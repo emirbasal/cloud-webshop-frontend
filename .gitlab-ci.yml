@@ -45,13 +45,21 @@ deploy:
     - npm install serverless-single-page-app-plugin
     - npm install serverless-s3-sync
     - ng build
-    - apt install python3-pip
-    - pip install awscli
   script:
     - serverless s3sync
   after_script:
-    - aws cloudfront create-invalidation --distribution-id E2JV8CIUEA5Y6P --paths "/*"
     - serverless domainInfo
   tags:
     - frontend
     - angular
+
+clear_CloudFront_cache:
+  stage: deploy
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  script:
+    - aws cloudfront create-invalidation --distribution-id E2JV8CIUEA5Y6P --paths "/*"
+  tags:
+  - frontend
+  - angular
+
+
