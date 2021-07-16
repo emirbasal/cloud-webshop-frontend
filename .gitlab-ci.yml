@@ -5,40 +5,36 @@ stages:
   - test
   - deploy
 
-# build:
-#   image: trion/ng-cli
-#   before_script:
-#     - npm ci
-#   script:
-#     - ng build
-#   artifacts:
-#     paths:
-#       - dist/
-#   tags:
-#     - frontend
-#     - angular
+build:
+  image: trion/ng-cli
+  before_script:
+    - npm ci
+  script:
+    - ng build
+  artifacts:
+    paths:
+      - dist/
+  tags:
+    - frontend
+    - angular
 
-
-variables:
-  CLI_VERSION: 12.1.2
-
-# test:nglint:
-#   stage: test
-#   image: trion/ng-cli:${CLI_VERSION}
-#   allow_failure: true
-#   before_script:
-#     - npm ci
-#   script:
-#     - ng lint
-#   tags:
-#     - frontend
-#     - angular
+test:nglint:
+  stage: test
+  image: trion/ng-cli
+  allow_failure: true
+  before_script:
+    - npm ci
+  script:
+    - ng lint
+  tags:
+    - frontend
+    - angular
 
 deploy:
   stage: deploy
   image: trion/ng-cli
-  # only:
-  #   - master
+  only:
+    - master
   before_script:
     - npm install
     - npm install -g serverless
