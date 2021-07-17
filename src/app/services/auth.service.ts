@@ -22,7 +22,7 @@ export class AuthService {
     return this.apiService.sendAuthDataToApi(account, this.authUrl)
   }
 
-  public hashPassword(password: string):string {
+  public hashPassword(password: string): string {
     const salt = bcrypt.genSaltSync(10);
     return bcrypt.hashSync(password, salt);
   }
@@ -48,7 +48,7 @@ export class AuthService {
     try{
         return jwt_decode(token);
     }
-    catch(Error){
+    catch (Error) {
         return null;
     }
   }

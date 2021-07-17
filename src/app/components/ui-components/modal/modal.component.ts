@@ -7,7 +7,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class ModalComponent implements OnInit {
 
-  @Output() close = new EventEmitter()
+  @Output() closeModal = new EventEmitter()
 
   constructor() { }
 
@@ -15,6 +15,6 @@ export class ModalComponent implements OnInit {
   }
 
   public onCloseModal(): void {
-    this.close.emit()
+    this.closeModal.emit()
   }
 }

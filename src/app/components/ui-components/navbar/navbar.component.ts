@@ -10,7 +10,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
 
-  @Output() loginModal = new EventEmitter
+  @Output() loginModal = new EventEmitter()
 
   public itemsInCart: number = 0
 

@@ -54,7 +54,7 @@ export class AuthenticationComponent implements OnInit {
   private authenticate(account: Account): void {
     this.isLoading = true
     this.authService.authenticate(account).subscribe((response: any) => {
-      let token:string = response.token
+      let token: string = response.token
       if (token.length > 0) {
         this.toastr.success('Erfolgreich authentifiziert', 'Login')
         localStorage.setItem("token", token)
