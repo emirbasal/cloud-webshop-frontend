@@ -41,7 +41,8 @@ export class AdminService {
 
   public deleteProduct(productId: string): void {
     const header = this.buildHeader()
-    this.apiService.http.delete(this.apiService.baseUrl + this.apiService.productsUrl + productId, { headers: header }).subscribe((response: any) => {
+    this.apiService.http.delete(this.apiService.baseUrl + this.apiService.productsUrl + productId, { headers: header })
+    .subscribe((response: any) => {
       this.apiService.toastr.success(`${productId} wurde gelöscht`, "Produkt")
 
       setTimeout(() => {
@@ -57,7 +58,8 @@ export class AdminService {
 
   public createProduct(product: Product): void {
     const header = this.buildHeader()
-    this.apiService.http.post(this.apiService.baseUrl + this.apiService.productsUrl, product, { headers: header }).subscribe((createdProduct: any) => {
+    this.apiService.http.post(this.apiService.baseUrl + this.apiService.productsUrl, product, { headers: header })
+    .subscribe((createdProduct: any) => {
       this.specificIsLoading.next(false)
       this.toastr.success('wurde angelegt', createdProduct.name)
 
