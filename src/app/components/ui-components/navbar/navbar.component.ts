@@ -40,6 +40,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.loginModal.emit()
   }
 
+  public logout(): void {
+    this.authService.logout()
+  }
+
   ngOnDestroy(): void {
     this.cartItemCounterSub.unsubscribe()
     this.userAuthenticatedSub.unsubscribe()

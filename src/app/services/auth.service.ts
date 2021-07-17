@@ -19,7 +19,6 @@ export class AuthService {
   }
 
   public authenticate(account: Account) {
-
     return this.apiService.sendAuthDataToApi(account, this.authUrl)
   }
 
@@ -55,7 +54,8 @@ export class AuthService {
   }
 
   public logout(): void {
-    localStorage.setItem('token', '')
+    localStorage.removeItem('token')
+    window.location.reload();
   }
 
 
