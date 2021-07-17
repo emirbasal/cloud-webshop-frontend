@@ -9,6 +9,7 @@ export class IconComponent implements OnInit, OnChanges {
 
   @Input() iconName: string
   @Input() iconAlt: string
+  @Input() width: number = 16
 
   public iconPath: string
 

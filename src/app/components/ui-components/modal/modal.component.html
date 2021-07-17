@@ -1,0 +1,6 @@
+<div (click)="onCloseModal()" class="modal-wrapper">
+  <div class="modal-content">
+      <div (click)="onCloseModal()" icon class="icon close-icon" iconName="close" iconAlt="Schließen Icon" [width]="36"></div>
+      <authentication (click)="$event.stopPropagation()" (login)="onCloseModal()"></authentication>
+  </div>
+</div>

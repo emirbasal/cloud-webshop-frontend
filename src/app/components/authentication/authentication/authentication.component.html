@@ -1,14 +1,15 @@
-<form class="username-form" [formGroup]="informationForm" autocomplete="off">
-  <fieldset>
+<form class="username-form border-radius" [formGroup]="informationForm" autocomplete="off">
+  <fieldset class="user-fieldset">
     <label for="username">Username</label>
     <input id="username" type="text" formControlName="username" placeholder="Username" maxlength="50"/>
 
     <label for="password">Passwort</label>
-    <input id="password" type="password" formControlName="password" placeholder="Passwort" maxlength="50"/>
+    <input id="password" type="password" formControlName="password" placeholder="Passwort" maxlength="50" (keyup.enter)="onSubmit()"/>
 
 
     <label for="button"></label>
-    <input id="button" type="button" class="button" (click)="onSubmit()" value="Produkt anlegen">
+    <input id="button" type="button" class="button" (click)="onSubmit()" value="Einloggen">
   </fieldset>
 </form>
-<!-- <ngx-loading [show]="isLoading"></ngx-loading> -->
+
+<ngx-loading [show]="isLoading"></ngx-loading>

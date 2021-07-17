@@ -7,9 +7,9 @@
 .admin-overview-wrapper {
   min-height: calc(100% - 16px);
   background-color: var(--c7);
-  margin: 8px;
+  margin: 0.5em;
   min-width: 600px;
-  padding: 8px;
+  padding: 0.5em;
 
   position: relative;
 }
@@ -39,6 +39,19 @@ admin-products {
 admin-orders {
   height: 147px;
 }
+
+h3 {
+  display: flex;
+}
+
+.plus-icon {
+  margin-left: 0.2em;
+}
+
+.plus-icon:hover {
+  cursor: pointer;
+}
+
 
 @media screen and (max-width: 1120px) {
   .admin-wrapper {

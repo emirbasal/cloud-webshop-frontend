@@ -3,21 +3,24 @@ import { Account } from '../classes/account';
 import { ApiService } from './api.service';
 import jwt_decode from 'jwt-decode';
 import bcrypt from 'bcryptjs';
+import { Subject, Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+
+  private userAuthenticated: Subject<boolean> = new Subject()
   private authUrl: string = "api/auth"
 
   constructor(private apiService: ApiService) {
   }
 
   public authenticate(account: Account) {
-    //Fürs erste auskommentiert, weil die Überprüfung im Backend noch implementiert werden muss
-    // account.password = this.hashPassword(account.password)
-    this.apiService.sendAuthDataToApi(account, this.authUrl)
+
+    return this.apiService.sendAuthDataToApi(account, this.authUrl)
   }
 
   public hashPassword(password: string):string {
@@ -38,6 +41,7 @@ export class AuthService {
         return false;
       }
     }
+    localStorage.removeItem('token')
     return true
   }
 
@@ -52,6 +56,15 @@ export class AuthService {
 
   public logout(): void {
     localStorage.setItem('token', '')
+  }
+
+
+  public getAuthInfo(): Observable<boolean> {
+    return this.userAuthenticated.asObservable()
+  }
+
+  public notifyAuthentication(isAuthenticated: boolean): void {
+    this.userAuthenticated.next(isAuthenticated)
   }
 
 

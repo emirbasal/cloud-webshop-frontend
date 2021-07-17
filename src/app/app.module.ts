@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { OrderDetailComponent } from './components/detail-components/order-detail/order-detail.component';
-import { CreateProductComponent } from './components/create-product/create-product.component';
+import { CreateProductComponent } from './components/admin-components/create-product/create-product.component';
 import { NgxLoadingModule } from 'ngx-loading';
 import { AdminOrdersEntryComponent } from './components/admin-components/admin-orders-entry/admin-orders-entry.component';
 import { AdminOrdersComponent } from './components/admin-components/admin-orders/admin-orders.component';
@@ -29,6 +29,7 @@ import { AdminProductsEntryComponent } from './components/admin-components/admin
 import { AdminProductsComponent } from './components/admin-components/admin-products/admin-products.component';
 import { AuthenticationComponent } from './components/authentication/authentication/authentication.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { ModalComponent } from './components/ui-components/modal/modal.component';
 
 
 
@@ -53,7 +54,8 @@ import { AuthGuardService } from './services/auth-guard.service';
     AdminOverviewComponent,
     AdminProductsEntryComponent,
     AdminProductsComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
