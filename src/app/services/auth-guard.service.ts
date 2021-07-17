@@ -12,6 +12,7 @@ export class AuthGuardService implements CanActivate {
       return true
     }
     this.router.navigate([''])
+    window.location.reload()
     return false
   }
 
