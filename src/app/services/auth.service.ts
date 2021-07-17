@@ -52,7 +52,6 @@ export class AuthService {
     window.location.reload();
   }
 
-
   public getAuthInfo(): Observable<boolean> {
     return this.userAuthenticated.asObservable()
   }
@@ -60,7 +59,5 @@ export class AuthService {
   public notifyAuthentication(isAuthenticated: boolean): void {
     this.userAuthenticated.next(isAuthenticated)
   }
-
-
 
 }

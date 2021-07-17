@@ -42,8 +42,6 @@ export class ApiService implements OnDestroy {
   private readySubProduct: Subscription = Subscription.EMPTY
   private readySubProducts: Subscription = Subscription.EMPTY
 
-  private specificIsLoading: Subject<boolean> = new Subject()
-
   constructor(public http: HttpClient, public toastr: ToastrService, private router: Router) {
     this.getProductData()
   }
@@ -169,28 +167,7 @@ export class ApiService implements OnDestroy {
     return this.requestedOrder.asObservable()
   }
 
-  public createProduct(product: Product): void {
-    this.http.post(this.baseUrl + this.productsUrl, product).subscribe((createdProduct: any) => {
-      this.specificIsLoading.next(false)
-      this.toastr.success('wurde angelegt', createdProduct.name)
-
-      this.router.navigate(['product/' + createdProduct.id])
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500)
-    }, error => {
-      console.log(error)
-      this.specificIsLoading.next(false)
-      this.toastr.error('konnte nicht angelegt werden', 'Produkt')
-    })
-  }
-
-  public getIsLoading(): Observable<any> {
-    return this.specificIsLoading.asObservable()
-  }
-
- public sendAuthDataToApi(account: Account, authUrl: string): Observable<string> {
+  public sendAuthDataToApi(account: Account, authUrl: string): Observable<string> {
     return this.http.post<string>(this.baseUrl + authUrl, account)
   }
 
