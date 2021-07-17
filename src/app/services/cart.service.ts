@@ -7,6 +7,7 @@ import { OrderItem } from '../classes/orderItem';
 import { ApiService } from './api.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { Address } from '../classes/address';
 
 @Injectable({
   providedIn: 'root'
@@ -189,8 +190,12 @@ export class CartService implements OnDestroy {
     }
   }
 
-  public createOrder(email: string, items: CartItem[], cardNumber: string): void {
+  public createOrder(email: string, items: CartItem[], cardNumber: string, address: Address): boolean {
     let adjustedItems: any[] = []
+    if (items.length <= 0) {
+      this.toastr.error('Keine Produkte im Warenkorb' ,'Warenkorb')
+      return false
+    }
 
     for (let cartItem of items) {
       let adjustedItem: any = {
@@ -209,10 +214,12 @@ export class CartService implements OnDestroy {
       card: {
         id: '',
         number: cardNumber
-      }
+      },
+      address
     }
 
     this.apiService.postOrder(order)
+    return true
   }
 
   // Save created orders id from user in localstorage
