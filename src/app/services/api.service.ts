@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { Order } from '../classes/order';
 import { Router } from '@angular/router';
+import { Account } from '../classes/account';
 
 
 @Injectable({
@@ -40,9 +41,6 @@ export class ApiService implements OnDestroy {
   // Subscriptions for products to wait until $ready is true
   private readySubProduct: Subscription = Subscription.EMPTY
   private readySubProducts: Subscription = Subscription.EMPTY
-
-  private specificIsLoading: Subject<boolean> = new Subject()
-
 
   constructor(public http: HttpClient, public toastr: ToastrService, private router: Router) {
     this.getProductData()
@@ -169,27 +167,9 @@ export class ApiService implements OnDestroy {
     return this.requestedOrder.asObservable()
   }
 
-  public createProduct(product: Product): void {
-    this.http.post(this.baseUrl + this.productsUrl, product).subscribe((createdProduct: any) => {
-      this.specificIsLoading.next(false)
-      this.toastr.success('wurde angelegt', createdProduct.name)
-
-      this.router.navigate(['product/' + createdProduct.id])
-
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500)
-    }, error => {
-      console.log(error)
-      this.specificIsLoading.next(false)
-      this.toastr.error('konnte nicht angelegt werden', 'Produkt')
-    })
+  public sendAuthDataToApi(account: Account, authUrl: string): Observable<string> {
+    return this.http.post<string>(this.baseUrl + authUrl, account)
   }
-
-  public getIsLoading(): Observable<any> {
-    return this.specificIsLoading.asObservable()
-  }
-
 
 
   ngOnDestroy() {

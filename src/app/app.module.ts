@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { OrderDetailComponent } from './components/detail-components/order-detail/order-detail.component';
-import { CreateProductComponent } from './components/create-product/create-product.component';
+import { CreateProductComponent } from './components/admin-components/create-product/create-product.component';
 import { NgxLoadingModule } from 'ngx-loading';
 import { AdminOrdersEntryComponent } from './components/admin-components/admin-orders-entry/admin-orders-entry.component';
 import { AdminOrdersComponent } from './components/admin-components/admin-orders/admin-orders.component';
@@ -27,6 +27,10 @@ import { AdminOutcomeComponent } from './components/admin-components/admin-outco
 import { AdminOverviewComponent } from './components/admin-components/admin-overview/admin-overview.component';
 import { AdminProductsEntryComponent } from './components/admin-components/admin-products-entry/admin-products-entry.component';
 import { AdminProductsComponent } from './components/admin-components/admin-products/admin-products.component';
+import { AuthenticationComponent } from './components/authentication/authentication/authentication.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { ModalComponent } from './components/ui-components/modal/modal.component';
+
 
 
 @NgModule({
@@ -49,7 +53,9 @@ import { AdminProductsComponent } from './components/admin-components/admin-prod
     AdminOutcomeComponent,
     AdminOverviewComponent,
     AdminProductsEntryComponent,
-    AdminProductsComponent
+    AdminProductsComponent,
+    AuthenticationComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +68,7 @@ import { AdminProductsComponent } from './components/admin-components/admin-prod
     NgxLoadingModule.forRoot({ backdropBorderRadius: '3px' }),
 
   ],
-  providers: [],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

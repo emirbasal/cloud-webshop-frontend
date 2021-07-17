@@ -4,6 +4,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { Product } from 'src/app/classes/product'
 import { ApiService } from 'src/app/services/api.service';
 import { ToastrService } from 'ngx-toastr';
+import { AdminService } from 'src/app/services/admin.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiService,
+    private adminService: AdminService,
     private toastr: ToastrService,
   ) { }
 
@@ -36,7 +37,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       description: ["", [Validators.required]],
       image: ["", [Validators.required]]
     })
-    this.isLoadingSub = this.apiService.getIsLoading().subscribe((isLoading: boolean) => {
+    this.isLoadingSub = this.adminService.getIsLoading().subscribe((isLoading: boolean) => {
       this.isLoading = isLoading
     })
   }
@@ -61,13 +62,12 @@ export class CreateProductComponent implements OnInit, OnDestroy {
         updatedAt: null
       }
       this.isLoading = true
-      this.apiService.createProduct(product)
+      this.adminService.createProduct(product)
 
       this.onReset()
     } else {
       console.log('informationForm: invalid');
     }
-
   }
 
   public onReset(): void {

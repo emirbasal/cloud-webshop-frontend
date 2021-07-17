@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'webshop';
+
+  public modalVisible: boolean = false;
+
+  public toggleModal(): void {
+    this.modalVisible = !this.modalVisible
+  }
+
 }

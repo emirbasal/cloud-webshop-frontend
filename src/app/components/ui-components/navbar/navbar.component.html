@@ -1,11 +1,23 @@
 <div class="navbar">
   <div class="button-wrapper border-radius">
-    <button routerLink="/" class="button-small">
-      <div class="icon" icon iconName="house-fill" iconAlt="Home icon"></div>
+    <button routerLink="/" class="button-small" title="Home">
+      <div class="icon" icon iconName="house-fill" iconAlt="Home icon" [width]="22"></div>
     </button>
-    <button routerLink="/cart" class="button-small">
-      <div class="icon" icon iconName="cart-fill" iconAlt="Shopping cart icon"></div>
+    <button routerLink="/cart" class="button-small" title="Einkaufswagen">
+      <div class="icon" icon iconName="cart-fill" iconAlt="Shopping cart icon" [width]="22"></div>
       <span class="cart-counter">{{itemsInCart}}</span>
     </button>
+
+    <button *ngIf="!isLoggedIn" (click)="onLoginModal()" class="button-small" title="Login">
+      <div class="icon" icon iconName="person" iconAlt="Person icon" [width]="22"></div>
+    </button>
+
+    <button *ngIf="isLoggedIn" routerLink="/admin/overview" class="button-small" title="Admin Overview">
+      <div class="icon" icon iconName="gear-wide-connected" iconAlt="Admin icon" [width]="22"></div>
+    </button>
+    <button *ngIf="isLoggedIn" (click)="logout()" class="button-small" title="Logout">
+      <div class="icon" icon iconName="logout" iconAlt="Logout icon" [width]="22"></div>
+    </button>
+
   </div>
 </div>

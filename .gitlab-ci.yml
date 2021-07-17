@@ -33,9 +33,9 @@ test:nglint:
 
 deploy:
   stage: Deploy
-  image: trion/ng-cli
   only:
     - master
+  image: trion/ng-cli
   before_script:
     - npm install
     - npm install -g serverless
@@ -52,6 +52,8 @@ deploy:
 
 clear_CloudFront_cache:
   stage: Deploy
+  only:
+    - master
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   script:
     - aws cloudfront create-invalidation --distribution-id E2JV8CIUEA5Y6P --paths "/*"

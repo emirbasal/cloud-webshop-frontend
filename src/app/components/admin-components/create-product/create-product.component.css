@@ -9,14 +9,20 @@
 .overview-wrapper {
   min-height: 100%;
   min-width: 968px;
-  padding: 16px;
-  margin: 8px;
+  padding: 1em;
+  margin: 0.5em;
   height: 100%;
   background-color: var(--c7);
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
+}
+
+label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 input {
@@ -53,10 +59,10 @@ form {
 }
 
 .tooltip {
-  display:inline-block;
-  position:relative;
-  border-bottom:1px dotted #666;
-  text-align:left;
+  position: relative;
+  text-align: left;
+  height: 1.3em;
+  margin-left: 3px;
 }
 
 .tooltip h3 {margin:12px 0;}
@@ -87,7 +93,7 @@ form {
 
 .tooltip .right img {
   width: 400px;
-  border-radius: 8px 8px 0 0;
+  border-radius: 0.5em 0.5em 0 0;
 }
 .tooltip .text-content {
   padding: 10px 20px;

@@ -9,8 +9,8 @@
 .overview-wrapper {
   min-height: 100%;
   min-width: 968px;
-  padding: 16px;
-  margin: 8px;
+  padding: 1em;
+  margin: 0.5em;
   height: 100%;
   background-color: var(--c7);
   display: flex;
