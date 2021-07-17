@@ -14,7 +14,7 @@ import { Account } from '../classes/account';
 export class ApiService implements OnDestroy {
 
   // API urls and extensions
-  public baseUrl: string = "https://e2s1lbvuee.execute-api.us-east-1.amazonaws.com/prod/"
+  public baseUrl: string = "https://up7jgorpda.execute-api.eu-central-1.amazonaws.com/prod/"
   public productsUrl: string = "api/products/"
   public ordersUrl: string = "api/orders/"
 
