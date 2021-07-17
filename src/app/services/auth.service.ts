@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Account } from '../classes/account';
 import { ApiService } from './api.service';
 import jwt_decode from 'jwt-decode';
-import bcrypt from 'bcryptjs';
 import { Subject, Observable } from 'rxjs';
 
 
@@ -20,11 +19,6 @@ export class AuthService {
 
   public authenticate(account: Account) {
     return this.apiService.sendAuthDataToApi(account, this.authUrl)
-  }
-
-  public hashPassword(password: string): string {
-    const salt = bcrypt.genSaltSync(10);
-    return bcrypt.hashSync(password, salt);
   }
 
   public isUserAuthenticated(): boolean {
