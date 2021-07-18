@@ -73,6 +73,10 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
 
   }
 
+  public refreshPageButtonEvent(): void {
+    window.location.reload()
+  }
+
   ngOnDestroy() {
     this.orderIdSub.unsubscribe()
     this.currentOrderSub.unsubscribe()
