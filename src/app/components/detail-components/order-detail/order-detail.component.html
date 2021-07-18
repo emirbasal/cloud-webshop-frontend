@@ -39,7 +39,7 @@
 
     <button class="refresh-page-button" *ngIf="currentOrder?.status === 'accepted'
       && currentOrder?.invoice != null && currentOrder?.invoice != '' && !currentOrder?.delivery_status" (click)="refreshPageButtonEvent()">
-      <span>Seite bitte aktualisieren, um auf den Lieferstatus zugreifen zu können.<br/> Dies kann bis zu 5 min dauern!</span>
+      <span>Lieferstatus noch nicht verfügbar.<br/> Bitte versuchen Sie es in 5 min erneut!</span>
     </button>
 
     <div *ngIf="currentOrder?.delivery_status" class="delivery">

@@ -33,7 +33,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.informationForm = this.formBuilder.group({
       name: ["", [Validators.required]],
-      amount: ["", [Validators.required, Validators.pattern(/^\d+\.\d{2}$/)]],
+      amount: ["", [Validators.required, Validators.pattern(/^\d+\.\d{2}$/), Validators.maxLength(12)]],
       description: ["", [Validators.required]],
       image: ["", [Validators.required]]
     })

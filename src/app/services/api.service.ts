@@ -49,10 +49,12 @@ export class ApiService implements OnDestroy {
   // Sends the initial request to get all products from the specified api endpoint and nexts the returned value
   private getProductData(): void {
     this.http.get(this.baseUrl + this.productsUrl).subscribe((data: Product[]) => {
-      this.toastr.info('wurden geladen', 'Produkte')
       this.productData.next(data)
       this.allProducts = data
       this.$ready.next(true)
+      if (this.router.url === '/') {
+        this.toastr.info('wurden geladen', 'Produkte')
+      }
     }, error => {
       this.toastr.error('konnten nicht geladen werden', 'Produkte')
     })
@@ -76,6 +78,10 @@ export class ApiService implements OnDestroy {
 
         this.requestedProduct.next(this.allProducts[productIndex])
         this.readySubProduct.unsubscribe()
+
+        if (productIndex <= -1) {
+          this.toastr.warning('wird gerade erstellt oder konnte nicht gefunden werden', 'Produkt')
+        }
       }
     })
   }
@@ -148,9 +154,14 @@ export class ApiService implements OnDestroy {
       }
       this.requestedOrder.next(order)
     }, error => {
+      if (error.status == 404) {
+        this.toastr.error('wurde nicht gefunden', 'Bestellung')
+      } else if (error.status == 400) {
+        this.toastr.error('wurde abgelehnt', 'Bestellung')
+      } else {
+        this.toastr.error('Es gab Probleme bei der Verarbeitung der Bestellung')
+      }
       console.log(error)
-      this.toastr.error('wurde abgelehnt', 'Bestellung')
-
       this.orderDeclined.next()
     })
   }
