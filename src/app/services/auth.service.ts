@@ -35,6 +35,7 @@ export class AuthService {
       }
     }
     localStorage.removeItem('token')
+
     return true
   }
 
@@ -50,6 +51,7 @@ export class AuthService {
   public logout(): void {
     localStorage.removeItem('token')
     window.location.reload();
+    this.apiService.toastr.success('wurde abgemeldet', 'User')
   }
 
   public getAuthInfo(): Observable<boolean> {

@@ -193,7 +193,7 @@ export class CartService implements OnDestroy {
   public createOrder(email: string, items: CartItem[], cardNumber: string, address: Address): boolean {
     let adjustedItems: any[] = []
     if (items.length <= 0) {
-      this.toastr.error('Keine Produkte im Warenkorb' ,'Warenkorb')
+      this.toastr.error('Keine Produkte im Warenkorb', 'Warenkorb')
       return false
     }
 

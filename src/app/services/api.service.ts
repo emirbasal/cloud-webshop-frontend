@@ -154,9 +154,9 @@ export class ApiService implements OnDestroy {
       }
       this.requestedOrder.next(order)
     }, error => {
-      if (error.status == 404) {
+      if (error.status === 404) {
         this.toastr.error('wurde nicht gefunden', 'Bestellung')
-      } else if (error.status == 400) {
+      } else if (error.status === 400) {
         this.toastr.error('wurde abgelehnt', 'Bestellung')
       } else {
         this.toastr.error('Es gab Probleme bei der Verarbeitung der Bestellung')

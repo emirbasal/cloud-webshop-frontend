@@ -55,8 +55,9 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartService.removeFromCart(productId)
   }
 
-  public createOrder(cardNumber: string, email: string,
-     country: string, state: string, city: string, zip: string, address1: string, address2: string, address3: string): void {
+  public createOrder(cardNumber: string, email: string, country: string, state: string, city: string,
+    zip: string, address1: string, address2: string, address3: string): void {
+
     let address: Address = {
       country,
       state,

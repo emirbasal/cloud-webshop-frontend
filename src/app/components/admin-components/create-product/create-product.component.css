@@ -52,6 +52,10 @@ form {
   display: inline;
 }
 
+.invalid-input {
+  border: solid 1px red;
+}
+
 @media screen and (max-width: 1120px) {
   .create-product-wrapper {
     margin-left: 75px;

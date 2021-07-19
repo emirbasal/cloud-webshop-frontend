@@ -12,5 +12,5 @@ export class Order {
     card: Card
     invoice: string
     address: Address
-    delivery_status: DeliveryStatus
+    deliveryStatus: DeliveryStatus
 }

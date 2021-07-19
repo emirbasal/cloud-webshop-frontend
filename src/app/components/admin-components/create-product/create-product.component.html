@@ -3,7 +3,10 @@
     <form class="user-information-form" [formGroup]="informationForm" autocomplete="off">
       <fieldset>
         <label for="name">Name</label>
-        <input id="name" type="text" formControlName="name" placeholder="Name" maxlength="50"/>
+        <input id="name" type="text" formControlName="name" placeholder="Name" maxlength="50"
+          [class.invalid-input]="informationForm.controls['name'].invalid
+          && (informationForm.controls['name'].dirty || informationForm.controls['name'].touched)"/>
+
 
         <label for="amount">Preis
           <div class="tooltip">
@@ -15,10 +18,15 @@
             </div>
           </div>
         </label>
-        <input id="amount" type="number" formControlName="amount" placeholder="Preis" min="0" value="0" step=".01"/>
+        <input id="amount" type="number" formControlName="amount" placeholder="Preis" min="0" value="0" step=".01"
+          [class.invalid-input]="informationForm.controls['amount'].invalid
+          && (informationForm.controls['amount'].dirty || informationForm.controls['amount'].touched)"/>
 
         <label for="description">Beschreibung</label>
-        <textarea id="description" formControlName="description" placeholder="Beschreibung" maxlength="450"></textarea>
+        <textarea id="description" formControlName="description" placeholder="Beschreibung" maxlength="450"
+          [class.invalid-input]="informationForm.controls['description'].invalid
+          && (informationForm.controls['description'].dirty || informationForm.controls['description'].touched)">
+        </textarea>
 
         <label for="image">Bild
           <div class="tooltip">
@@ -30,7 +38,10 @@
             </div>
           </div>
         </label>
-        <input type="file" formControlName="image" id="image" accept="image/png, image/jpeg" (change)="onFileChanged($event)">
+        <input type="file" formControlName="image" id="image" accept="image/png, image/jpeg" (change)="onFileChanged($event)"
+          [class.invalid-input]="informationForm.controls['image'].invalid
+          && (informationForm.controls['image'].dirty || informationForm.controls['image'].touched)"/>
+
 
         <label for="button"></label>
         <input id="button" type="button" class="button" (click)="onSubmit()" value="Produkt anlegen">

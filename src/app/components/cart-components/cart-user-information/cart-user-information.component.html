@@ -1,13 +1,28 @@
 <form class="user-information-form" [formGroup]="informationForm" autocomplete="off">
   <fieldset>
-      <label for="userMail">Mailadresse</label>
-      <input id="userMail" type="email" formControlName="email" placeholder="Mailadresse"/>
+      <label for="email">Mailadresse</label>
+      <input id="email" type="email" formControlName="email" placeholder="Mailadresse"
+          [class.invalid-input]="informationForm.controls['email'].invalid
+          && (informationForm.controls['email'].dirty || informationForm.controls['email'].touched)"/>
 
       <label for="cardNumber">Kartennummer</label>
-      <input #cc id="cardNumber" type="tel" maxlength="20" formControlName="card" placeholder="Kartennummer" (keyup)="handleCreditCards()"/>
+      <input #cc id="cardNumber" type="tel" maxlength="20" formControlName="card" placeholder="Kartennummer" (keyup)="handleCreditCards()"
+        [class.invalid-input]="informationForm.controls['card'].invalid
+        && (informationForm.controls['card'].dirty || informationForm.controls['card'].touched)"/>
 
-      <label for="country">Land</label>
-      <input id="country" type="text" formControlName="country" placeholder="Land" maxlength="30"/>
+      <label for="country">Land
+        <div class="tooltip">
+          <div class="icon" icon iconName="info-circle"></div>
+          <div class="right">
+            <div class="text-content">
+              <h6>Das Land bitte auf englisch eingeben, da ansonsten die Lieferschnittstelle Probleme mit der Erkennung hat</h6>
+            </div>
+          </div>
+        </div>
+      </label>
+      <input id="country" type="text" formControlName="country" placeholder="Germany" maxlength="30"
+        [class.invalid-input]="informationForm.controls['country'].invalid
+        && (informationForm.controls['country'].dirty || informationForm.controls['country'].touched)"/>
 
       <label for="state">Bundesland</label>
       <input id="state" type="text" formControlName="state" placeholder="Bundesland" maxlength="30"/>

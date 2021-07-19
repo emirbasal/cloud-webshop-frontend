@@ -21,15 +21,15 @@ export class CartUserInformationComponent implements OnInit {
 
   ngOnInit(): void {
     this.informationForm = this.formBuilder.group({
+      email: ["", [Validators.required, Validators.email]],
+      card: ["", [Validators.required, Validators.pattern('^[ 0-9]*$'), Validators.minLength(19)]],
       country: ["", [Validators.required]],
       state: ["", [Validators.required]],
       city: ["", [Validators.required]],
       zip: ["", [Validators.required, Validators.maxLength(10)]],
       name: ["", [Validators.required]],
       address1: ["", [Validators.required]],
-      address2: ["", []],
-      email: ["", [Validators.required, Validators.email]],
-      card: ["", [Validators.required, Validators.pattern('^[ 0-9]*$'), Validators.minLength(19)]]
+      address2: ["", []]
     });
   }
 
