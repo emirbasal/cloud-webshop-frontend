@@ -66,6 +66,39 @@
   color: black;
 }
 
+.delivery-comment {
+  display: inline-block
+}
+
+.delivery-status {
+  font-weight: bold
+}
+
+.delivery-column {
+  width: 400px;
+  height: 10px;
+  padding: 0px;
+}
+
+.delivery-row {
+  padding-bottom: 1em;
+  height: 10px
+}
+
+.delivery-info-table {
+  border-spacing: 0px;
+  border-collapse: collapse;
+}
+
+.delivery {
+  margin-top: 3em;
+}
+
+.refresh-page-button {
+  font-weight:lighter;
+  margin-top: 3em;
+  height: 3em;
+}
 
 @media screen and (max-width: 1120px) {
   .order-outer-wrapper {

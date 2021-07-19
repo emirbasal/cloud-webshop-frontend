@@ -2,7 +2,6 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { Product } from 'src/app/classes/product'
-import { ApiService } from 'src/app/services/api.service';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/services/admin.service';
 
@@ -33,7 +32,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.informationForm = this.formBuilder.group({
       name: ["", [Validators.required]],
-      amount: ["", [Validators.required, Validators.pattern(/^\d+\.\d{2}$/)]],
+      amount: ["", [Validators.required, Validators.pattern(/^\d+\.\d{2}$/), Validators.maxLength(12)]],
       description: ["", [Validators.required]],
       image: ["", [Validators.required]]
     })
@@ -82,7 +81,10 @@ export class CreateProductComponent implements OnInit, OnDestroy {
 
   public onFileChanged(event: any) {
     const image = event.target.files[0]
-    if (image.size >= 300000) {
+
+    if (!image) {
+      return
+    } else if (image.size >= 300000) {
       console.log("Image is too large")
       this.getFormGroup.image.reset()
       this.toastr.error("Das ausgewählte Bild is zu groß. Bitte wähle ein kleineres Bild (>= 300 KB)");

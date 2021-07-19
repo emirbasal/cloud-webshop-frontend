@@ -1,5 +1,6 @@
-import { Product } from './product'
 import { Card } from './card'
+import { Address } from './address'
+import { DeliveryStatus } from './deliveryStatus'
 
 export class Order {
     id: string
@@ -10,4 +11,6 @@ export class Order {
     status: string
     card: Card
     invoice: string
+    address: Address
+    deliveryStatus: DeliveryStatus
 }

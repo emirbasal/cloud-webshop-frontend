@@ -46,10 +46,11 @@
 
 .product-description {
   width: 300px;
+  line-break: anywhere;
 }
 
 .product-price {
-
+  line-break: anywhere;
 }
 
 .price-text {

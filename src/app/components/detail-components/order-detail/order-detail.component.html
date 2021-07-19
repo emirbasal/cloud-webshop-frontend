@@ -29,9 +29,45 @@
         </tbody>
       </table>
 
-    <a *ngIf="currentOrder?.status === 'accepted' && currentOrder?.invoice != null && currentOrder?.invoice != ''" [href]="currentOrder?.invoice">
+    <a *ngIf="currentOrder?.status === 'accepted' && currentOrder?.invoice" [href]="currentOrder?.invoice">
       Rechnung herunterladen
     </a>
+    <button *ngIf="currentOrder?.status === 'accepted' && !currentOrder?.invoice" class="refresh-page-button" (click)="refreshPageButtonEvent()">
+    <span>Seite bitte aktualisieren, um auf die Rechnung zugreifen zu können</span>
+    </button>
+
+
+    <button class="refresh-page-button" *ngIf="currentOrder?.status === 'accepted'
+      && currentOrder?.invoice && !currentOrder?.deliveryStatus" (click)="refreshPageButtonEvent()">
+      <span>Lieferstatus noch nicht verfügbar.<br/> Bitte versuchen Sie es in 5 min erneut!</span>
+    </button>
+
+    <div *ngIf="currentOrder?.status === 'accepted' && currentOrder?.deliveryStatus" class="delivery">
+      <table class="delivery-info-table" cellspacing="0">
+        <tbody>
+          <tr class="delivery-row">
+            <td class="delivery-column">
+            <h4> Lieferstatus: </h4>
+            </td>
+          </tr>
+          <tr class="delivery-row">
+            <td class="delivery-column">
+              <h6 class="delivery-status">{{ currentOrder?.deliveryStatus.status }}</h6>
+            </td>
+          </tr>
+          <tr class="delivery-row">
+            <td class="delivery-column">
+            <h4> Kommentar vom Lieferanten: </h4>
+            </td>
+          </tr>
+          <tr class="delivery-row">
+            <td class="delivery-column">
+              <span class=delivery-comment>{{ currentOrder?.deliveryStatus.comment }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <ngx-loading [show]="isLoading"></ngx-loading>
   </div>
 </div>

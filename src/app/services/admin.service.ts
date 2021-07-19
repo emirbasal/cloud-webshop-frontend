@@ -81,6 +81,6 @@ export class AdminService {
   }
 
   public buildHeader(): any {
-    return { 'Authorization': "Bearer " + localStorage.getItem('token') };
+    return { Authorization: 'Bearer ' + localStorage.getItem('token') };
   }
 }

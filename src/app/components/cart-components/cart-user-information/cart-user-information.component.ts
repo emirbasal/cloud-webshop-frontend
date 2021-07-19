@@ -22,7 +22,14 @@ export class CartUserInformationComponent implements OnInit {
   ngOnInit(): void {
     this.informationForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
-      card: ["", [Validators.required, Validators.pattern('^[ 0-9]*$'), Validators.minLength(19)]]
+      card: ["", [Validators.required, Validators.pattern('^[ 0-9]*$'), Validators.minLength(19)]],
+      country: ["", [Validators.required]],
+      state: ["", [Validators.required]],
+      city: ["", [Validators.required]],
+      zip: ["", [Validators.required, Validators.maxLength(10)]],
+      name: ["", [Validators.required]],
+      address1: ["", [Validators.required]],
+      address2: ["", []]
     });
   }
 
@@ -40,7 +47,14 @@ export class CartUserInformationComponent implements OnInit {
 
     this.createOrder.emit({
       cardNumber: this.formGroupControls.card.value.replace(/\s+/g, ''),
-      email: this.formGroupControls.email.value
+      email: this.formGroupControls.email.value,
+      country: this.formGroupControls.country.value,
+      state: this.formGroupControls.state.value,
+      city: this.formGroupControls.city.value,
+      zip: this.formGroupControls.zip.value,
+      address1: this.formGroupControls.name.value,
+      address2: this.formGroupControls.address1.value,
+      address3: this.formGroupControls.address2.value,
     })
   }
 
