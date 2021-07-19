@@ -10,7 +10,13 @@
 </td>
 
 <td>
-  <a *ngIf="order?.status === 'accepted' && order?.invoice != null && order?.invoice != ''" [href]="order?.invoice">
+  <a *ngIf="order?.status === 'accepted' && order?.invoice" [href]="order?.invoice">
       Rechnung
   </a>
+</td>
+
+<td>
+  <div *ngIf="order?.status === 'accepted' && order?.deliveryStatus">
+      {{ order?.deliveryStatus.status }}
+  </div>
 </td>

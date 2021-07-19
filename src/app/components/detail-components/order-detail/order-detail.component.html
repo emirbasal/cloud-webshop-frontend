@@ -29,20 +29,20 @@
         </tbody>
       </table>
 
-    <a *ngIf="currentOrder?.status === 'accepted' && currentOrder?.invoice != null && currentOrder?.invoice != ''" [href]="currentOrder?.invoice">
+    <a *ngIf="currentOrder?.status === 'accepted' && currentOrder?.invoice" [href]="currentOrder?.invoice">
       Rechnung herunterladen
     </a>
-    <button *ngIf="currentOrder?.status === 'accepted' && currentOrder?.invoice == ''" class="refresh-page-button" (click)="refreshPageButtonEvent()">
+    <button *ngIf="currentOrder?.status === 'accepted' && !currentOrder?.invoice" class="refresh-page-button" (click)="refreshPageButtonEvent()">
     <span>Seite bitte aktualisieren, um auf die Rechnung zugreifen zu können</span>
     </button>
 
 
     <button class="refresh-page-button" *ngIf="currentOrder?.status === 'accepted'
-      && currentOrder?.invoice != null && currentOrder?.invoice != '' && !currentOrder?.deliveryStatus" (click)="refreshPageButtonEvent()">
+      && currentOrder?.invoice && !currentOrder?.deliveryStatus" (click)="refreshPageButtonEvent()">
       <span>Lieferstatus noch nicht verfügbar.<br/> Bitte versuchen Sie es in 5 min erneut!</span>
     </button>
 
-    <div *ngIf="currentOrder?.deliveryStatus" class="delivery">
+    <div *ngIf="currentOrder?.status === 'accepted' && currentOrder?.deliveryStatus" class="delivery">
       <table class="delivery-info-table" cellspacing="0">
         <tbody>
           <tr class="delivery-row">
