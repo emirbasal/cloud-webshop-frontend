@@ -67,7 +67,8 @@
 }
 
 .delivery-comment {
-  display: inline-block
+  display: inline-block;
+  white-space: pre-line;
 }
 
 .delivery-status {
@@ -98,6 +99,14 @@
   font-weight:lighter;
   margin-top: 3em;
   height: 3em;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
 }
 
 @media screen and (max-width: 1120px) {
