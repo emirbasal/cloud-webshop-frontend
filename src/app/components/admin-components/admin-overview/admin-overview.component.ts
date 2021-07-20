@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { Order } from 'src/app/classes/order';
 import { Product } from 'src/app/classes/product';
 import { AdminService } from 'src/app/services/admin.service';
+import { environment } from "../../../../environments/environment";
+
 
 @Component({
   selector: 'admin-overview',
@@ -12,7 +14,7 @@ import { AdminService } from 'src/app/services/admin.service';
 })
 export class AdminOverviewComponent implements OnInit, OnDestroy {
 
-  public currency: string = "EUR"
+  public currency: string = environment.shopCurrency
 
   public products: Product[] = []
   public outcome: any = null

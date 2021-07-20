@@ -4,6 +4,8 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { Product } from 'src/app/classes/product'
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/services/admin.service';
+import { environment } from "../../../../environments/environment";
+
 
 
 @Component({
@@ -52,8 +54,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
       let product: Product = {
         id: null,
         name: this.getFormGroup.name.value,
-        // TODO: MAKE GLOBALLY CHANGEABLE
-        currency: 'EUR',
+        currency: environment.shopCurrency,
         description: this.getFormGroup.description.value,
         amount: this.getFormGroup.amount.value * 100,
         image: this.image,

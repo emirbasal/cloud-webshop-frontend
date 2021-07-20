@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Order } from '../classes/order';
 import { Router } from '@angular/router';
 import { Account } from '../classes/account';
+import { environment } from "../../environments/environment";
 
 
 @Injectable({
@@ -14,7 +15,7 @@ import { Account } from '../classes/account';
 export class ApiService implements OnDestroy {
 
   // API urls and extensions
-  public baseUrl: string = "https://up7jgorpda.execute-api.eu-central-1.amazonaws.com/prod/"
+  public baseUrl: string = environment.apiUrl
   public productsUrl: string = "api/products/"
   public ordersUrl: string = "api/orders/"
 
