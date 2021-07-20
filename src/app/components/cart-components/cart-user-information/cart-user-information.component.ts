@@ -1,5 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Country } from 'src/app/classes/country';
+import { countryNamesInGerman } from 'src/assets/countries/countries_de';
+import { countryNamesInEnglish } from 'src/assets/countries/countries_en';
+
 
 @Component({
   selector: 'cart-user-information',
@@ -14,6 +18,8 @@ export class CartUserInformationComponent implements OnInit {
 
   public informationForm: FormGroup;
   public submitted = false
+
+  public allCountryNamesInGerman: Country[] = countryNamesInGerman
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,7 +54,7 @@ export class CartUserInformationComponent implements OnInit {
     this.createOrder.emit({
       cardNumber: this.formGroupControls.card.value.replace(/\s+/g, ''),
       email: this.formGroupControls.email.value,
-      country: this.formGroupControls.country.value,
+      country: this.getCountryNameInEnglish(this.formGroupControls.country.value),
       state: this.formGroupControls.state.value,
       city: this.formGroupControls.city.value,
       zip: this.formGroupControls.zip.value,
@@ -56,6 +62,17 @@ export class CartUserInformationComponent implements OnInit {
       address2: this.formGroupControls.address1.value,
       address3: this.formGroupControls.address2.value,
     })
+  }
+
+
+  private getCountryNameInEnglish(code: string): string {
+    const countryCodes = countryNamesInEnglish.map((country: Country) => {
+      return country.code
+    })
+
+    let targetIndex = countryCodes.indexOf(code)
+
+    return countryNamesInEnglish[targetIndex].name
   }
 
   public onReset(): void {
