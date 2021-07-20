@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import { Country } from "src/app/classes/country";
 
 export const countryNamesInGerman: Country[] = [
