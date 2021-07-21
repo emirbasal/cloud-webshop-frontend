@@ -66,12 +66,15 @@ export class CartService implements OnDestroy {
 
   private setupLocalStorage(): void {
     this.requestedProductsSub = this.apiService.getRequestedProductsForCart().subscribe((products: Product[]) => {
-      if (products != null) {
+      if (products) {
         for (let product of products) {
-          this.productsInCart.push({
-            quantity: this.parsedCart[product.id].quantity,
-            product
-          })
+          if (product) {
+            this.productsInCart.push({
+              quantity: this.parsedCart[product.id].quantity,
+              product
+            })
+          }
+
         }
       }
     })
