@@ -15,9 +15,6 @@ build:
   artifacts:
     paths:
       - dist/
-  tags:
-    - frontend
-    - angular
 
 test:nglint:
   stage: Test
@@ -27,9 +24,6 @@ test:nglint:
     - npm ci
   script:
     - ng lint
-  tags:
-    - frontend
-    - angular
 
 deploy:
   stage: Deploy
@@ -46,19 +40,11 @@ deploy:
     - serverless s3sync
   after_script:
     - serverless domainInfo
-  tags:
-    - frontend
-    - angular
 
-clear_CloudFront_cache:
+clear_cloudfront_cache:
   stage: Deploy
   only:
     - master
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
   script:
     - aws cloudfront create-invalidation --distribution-id E2JV8CIUEA5Y6P --paths "/*"
-  tags:
-  - frontend
-  - angular
-
-
