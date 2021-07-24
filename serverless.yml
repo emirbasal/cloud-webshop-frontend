@@ -5,15 +5,17 @@ plugins:
   - serverless-s3-sync
 
 custom:
-  bucket: cc-webshop-frontend
+  bucket: cc-webshop-frontend-${aws:accountId}
   s3Sync:
-    - bucketName: cc-webshop-frontend
+    - bucketName: cc-webshop-frontend-${aws:accountId}
       localDir: dist/webshop
       acl: public-read
 
 provider:
   name: aws
   runtime: nodejs14.x
+  region: eu-central-1
+  stage: prod
 
 resources:
   Resources:
@@ -45,7 +47,7 @@ resources:
       Properties:
         DistributionConfig:
           Origins:
-            - DomainName: ${self:custom.bucket}.s3.amazonaws.com
+            - DomainName: ${self:custom.bucket}.s3.${aws:region}.amazonaws.com
               # An identifier for the origin which must be unique within the distribution
               Id: WebApp
               CustomOriginConfig:
