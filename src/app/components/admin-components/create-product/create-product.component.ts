@@ -49,6 +49,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
 
   public onSubmit(): void {
     this.submitted = true;
+    let calculatedAmount =  (this.getFormGroup.amount.value * 100).toFixed(0)
 
     if (this.informationForm.valid) {
       let product: Product = {
@@ -56,7 +57,7 @@ export class CreateProductComponent implements OnInit, OnDestroy {
         name: this.getFormGroup.name.value,
         currency: environment.shopCurrency,
         description: this.getFormGroup.description.value,
-        amount: this.getFormGroup.amount.value * 100,
+        amount: Number(calculatedAmount),
         image: this.image,
         createdAt: null,
         updatedAt: null
