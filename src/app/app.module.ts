@@ -15,7 +15,7 @@ import { CartItemListEntryComponent } from './components/cart-components/cart-it
 import { CartUserInformationComponent } from './components/cart-components/cart-user-information/cart-user-information.component';
 import { IconComponent } from './components/ui-components/icon/icon.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { OrderDetailComponent } from './components/detail-components/order-detail/order-detail.component';
@@ -30,6 +30,7 @@ import { AdminProductsComponent } from './components/admin-components/admin-prod
 import { AuthenticationComponent } from './components/authentication/authentication/authentication.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { ModalComponent } from './components/ui-components/modal/modal.component';
+import { ApiKeyInterceptor } from './interceptor/api-key.interceptor';
 
 
 
@@ -68,7 +69,14 @@ import { ModalComponent } from './components/ui-components/modal/modal.component
     NgxLoadingModule.forRoot({ backdropBorderRadius: '3px' }),
 
   ],
-  providers: [AuthGuardService],
+  providers: [
+    AuthGuardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiKeyInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

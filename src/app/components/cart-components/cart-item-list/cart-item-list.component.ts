@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { CartItem } from 'src/app/classes/cartItem';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'cart-item-list',
@@ -13,6 +14,8 @@ export class CartItemListComponent implements OnInit, OnChanges {
 
   @Input() items: CartItem[] = []
   @Input() totalSum: number
+
+  public shopCurrency = environment.shopCurrency
 
   constructor() { }
 

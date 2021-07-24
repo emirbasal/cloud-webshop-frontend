@@ -20,8 +20,6 @@ export class CartComponent implements OnInit, OnDestroy {
   public itemsInCart: CartItem[] = []
   public currentSumCart: number = 0
 
-  private shopCurrency: string = 'EUR'
-
   private resetUserInputSub: Subscription = Subscription.EMPTY
 
   public isLoading: boolean = false

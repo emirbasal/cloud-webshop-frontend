@@ -5,19 +5,20 @@ plugins:
   - serverless-s3-sync
 
 custom:
-  bucket: cc-webshop-frontend
+  bucket: cc-webshop-frontend-${aws:accountId}
   s3Sync:
-    - bucketName: cc-webshop-frontend
+    - bucketName: cc-webshop-frontend-${aws:accountId}
       localDir: dist/webshop
       acl: public-read
 
 provider:
   name: aws
   runtime: nodejs14.x
+  region: eu-central-1
+  stage: prod
 
 resources:
   Resources:
-    ## Specifying the S3 Bucket
     WebAppS3Bucket:
       Type: AWS::S3::Bucket
       Properties:
@@ -26,7 +27,7 @@ resources:
         WebsiteConfiguration:
           IndexDocument: index.html
           ErrorDocument: index.html
-    ## Specifying the policies to make sure all files inside the Bucket are avaialble to CloudFront
+    # Specifying the policies to make sure all files inside the Bucket are avaialble to CloudFront
     WebAppS3BucketPolicy:
       Type: AWS::S3::BucketPolicy
       Properties:
@@ -40,29 +41,21 @@ resources:
               Action:
               - s3:GetObject
               Resource: arn:aws:s3:::${self:custom.bucket}/*
-    ## Specifying the CloudFront Distribution to server your Web Application
+    # Specifying the CloudFront Distribution to server your Web Application
     WebAppCloudFrontDistribution:
       Type: AWS::CloudFront::Distribution
       Properties:
         DistributionConfig:
           Origins:
-            - DomainName: ${self:custom.bucket}.s3.amazonaws.com
-              ## An identifier for the origin which must be unique within the distribution
+            - DomainName: ${self:custom.bucket}.s3.${aws:region}.amazonaws.com
+              # An identifier for the origin which must be unique within the distribution
               Id: WebApp
               CustomOriginConfig:
                 HTTPPort: 80
                 HTTPSPort: 443
                 OriginProtocolPolicy: https-only
-              ## In case you want to restrict the bucket access use S3OriginConfig and remove CustomOriginConfig
-              # S3OriginConfig:
-              #   OriginAccessIdentity: origin-access-identity/cloudfront/E127EXAMPLE51Z
           Enabled: 'true'
-          ## Uncomment the following section in case you are using a custom domain
-          # Aliases:
-          # - mysite.example.com
           DefaultRootObject: index.html
-          ## Since the Single Page App is taking care of the routing we need to make sure ever path is served with index.html
-          ## The only exception are files that actually exist e.h. app.js, reset.css
           CustomErrorResponses:
             - ErrorCode: 404
               ResponseCode: 200
@@ -76,25 +69,19 @@ resources:
               - PATCH
               - POST
               - PUT
-            ## The origin id defined above
+            # The origin id defined above
             TargetOriginId: WebApp
-            ## Defining if and how the QueryString and Cookies are forwarded to the origin which in this case is S3
             ForwardedValues:
               QueryString: 'false'
               Cookies:
                 Forward: none
-            ## The protocol that users can use to access the files in the origin. To allow HTTP use `allow-all`
+            # The protocol that users can use to access the files in the origin. To allow HTTP use `allow-all`
             ViewerProtocolPolicy: redirect-to-https
-          ## The certificate to use when viewers use HTTPS to request objects.
+          # The certificate to use when viewers use HTTPS to request objects.
           ViewerCertificate:
             CloudFrontDefaultCertificate: 'true'
-          ## Uncomment the following section in case you want to enable logging for CloudFront requests
-          # Logging:
-          #   IncludeCookies: 'false'
-          #   Bucket: mylogs.s3.amazonaws.com
-          #   Prefix: myprefix
 
-  ## In order to print out the hosted domain via `serverless info` we need to define the DomainName output for CloudFormation
+  # In order to print out the hosted domain via `serverless info` we need to define the DomainName output for CloudFormation
   Outputs:
     WebAppCloudFrontDistributionOutput:
       Value:
