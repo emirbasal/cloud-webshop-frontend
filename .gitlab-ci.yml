@@ -4,6 +4,7 @@ stages:
   - Build
   - Test
   - Deploy
+  - Invalidation
 
 build:
   stage: Build
@@ -42,7 +43,7 @@ deploy:
     - serverless domainInfo
 
 clear_cloudfront_cache:
-  stage: Deploy
+  stage: Invalidation
   only:
     - master
   image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
